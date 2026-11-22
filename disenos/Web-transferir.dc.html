@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Transferir — web</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #18181B">
+<aside style="flex: 1 1 240px; max-width: 100%; box-sizing: border-box; padding: 28px 16px; display: flex; flex-direction: column; gap: 28px; background: #FFFFFF; border-right: 1px solid #E4E4E7">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 12px">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="15" width="5" height="10" rx="1" fill="#18181B"></rect><rect x="11.5" y="9" width="5" height="16" rx="1" fill="#18181B"></rect><rect x="20" y="3" width="5" height="22" rx="1" fill="{{accent}}"></rect></svg>
+<span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Mis Finanzas</span>
+</div>
+<button type="button" style="display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 20px 0 8px; border: 0; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; color: {{accent}}; display: flex; align-items: center; justify-content: center; flex: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+</span>
+Registrar gasto
+</button>
+<nav aria-label="Navegación principal" style="display: flex; flex-direction: column; gap: 4px">
+<a href="Web-inicio.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path></svg>Inicio</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>Movimientos</a>
+<a href="Web-cuentas.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: #FEF2F2; color: {{accent}}; font-weight: 600; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>Mis cuentas</a>
+<a href="Web-ahorros.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg>Ahorros</a>
+<a href="Web-gastos-fijos.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>Gastos fijos</a>
+<a href="Web-reportes.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="13"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="9"></line></svg>Reportes</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Perfil</a>
+</nav>
+</aside>
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; background: #FFFFFF">
+<header style="background: {{accent}}; color: #FFFFFF; padding: 40px clamp(24px, 4vw, 56px) 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<a href="Web-cuentas.dc.html" style="display: inline-flex; align-items: center; gap: 4px; color: #FECACA; font-size: 14px; font-weight: 500; min-height: 32px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>Mis cuentas</a>
+<h1 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em">Transferir entre cuentas</h1>
+<span style="font-size: 15px; color: #FECACA">Mueve dinero de una cuenta tuya a otra.</span>
+</div>
+
+</header>
+
+<main style="flex: 1; margin-top: -32px; box-sizing: border-box; padding: 32px clamp(24px, 4vw, 56px) 56px; background: #FFFFFF; border-radius: 28px 28px 0 0; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<form style="flex: 999 1 460px; min-width: 0; max-width: 600px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 500; color: #18181B">Desde</span>
+<button type="button" aria-haspopup="listbox" aria-label="Desde: Cuenta corriente, cambiar cuenta" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border: 1px solid #D4D4D8; border-radius: 12px; background: #FFFFFF; font: inherit; color: #18181B; text-align: left; cursor: pointer">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #1D4ED8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 12 4l9 6"></path><line x1="5" y1="10" x2="5" y2="18"></line><line x1="10" y1="10" x2="10" y2="18"></line><line x1="14" y1="10" x2="14" y2="18"></line><line x1="19" y1="10" x2="19" y2="18"></line><line x1="3" y1="20" x2="21" y2="20"></line></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Cuenta corriente</span><span style="font-size: 13px; color: #52525B">[Banco] · Disponible L 0.00</span></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+</div>
+<div style="display: flex; justify-content: center; margin: -10px 0">
+<button type="button" aria-label="Intercambiar cuentas" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #D4D4D8; background: #FFFFFF; color: #18181B; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16"></path><polyline points="3 8 7 4 11 8"></polyline><path d="M17 20V4"></path><polyline points="13 16 17 20 21 16"></polyline></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; font-weight: 500; color: #18181B">Hacia</span>
+<button type="button" aria-haspopup="listbox" aria-label="Hacia: Cuenta de ahorro, cambiar cuenta" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; border: 1px solid #D4D4D8; border-radius: 12px; background: #FFFFFF; font: inherit; color: #18181B; text-align: left; cursor: pointer">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7h-1.2A6 6 0 0 0 7 9H5a2 2 0 0 0 0 4h1a7 7 0 0 0 3 4v3h3v-2h2v2h3v-3.5a6 6 0 0 0 2-4.5V7z"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Cuenta de ahorro</span><span style="font-size: 13px; color: #52525B">[Banco] · Lempiras</span></span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 0">
+<label for="w-monto" style="font-size: 14px; font-weight: 500; color: #52525B">Monto a transferir</label>
+<div style="display: flex; align-items: baseline; justify-content: center; gap: 8px">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 24px; color: #71717A" aria-hidden="true">L</span>
+<input id="w-monto" type="text" inputmode="decimal" placeholder="0.00" style="width: 220px; border: 0; border-bottom: 2px solid #E4E4E7; padding: 0 0 4px; background: transparent; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 48px; font-weight: 500; color: #18181B; text-align: center">
+</div>
+<div style="display: flex; gap: 8px; margin-top: 6px">
+<button type="button" style="height: 32px; padding: 0 12px; border: 1px solid #E4E4E7; border-radius: 999px; background: #FAFAF9; font: inherit; font-size: 13px; color: #3F3F46; cursor: pointer">Todo el saldo</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="w-fecha" style="font-size: 14px; font-weight: 500; color: #18181B">Fecha</label>
+<input id="w-fecha" type="text" value="Hoy, 22 nov 2026" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="w-nota" style="font-size: 14px; font-weight: 500; color: #18181B">Nota <span style="color: #71717A; font-weight: 400">(opcional)</span></label>
+<input id="w-nota" type="text" placeholder="Ej. Ahorro de la quincena" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%">
+</div>
+</div>
+<p style="margin: 0; display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; background: #F4F4F5; border-radius: 10px; font-size: 13px; line-height: 1.45; color: #3F3F46">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52525B" stroke-width="2" stroke-linecap="round" style="flex: none; margin-top: 1px" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="11" x2="12" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+<span>Las transferencias entre tus cuentas no se cuentan como gasto ni como ingreso.</span>
+</p>
+
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px">
+<button type="submit" style="height: 50px; padding: 0 32px; border: 0; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Transferir</button>
+<a href="Web-cuentas.dc.html" style="height: 50px; padding: 0 24px; border: 1px solid #D4D4D8; border-radius: 8px; color: #18181B; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; text-decoration: none">Cancelar</a>
+</div>
+</form>
+<aside style="flex: 1 1 300px; min-width: 0; max-width: 380px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; color: #71717A">RESUMEN</span>
+<div style="padding: 8px 20px 12px; border: 1px solid #E4E4E7; border-radius: 16px; display: flex; flex-direction: column">
+<div style="padding: 12px 0; font-size: 14px; color: #52525B">Saldos después de transferir</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #F4F4F5; font-size: 14px"><span style="color: #52525B">Cuenta corriente</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500">L 0.00 → L 0.00</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #F4F4F5; font-size: 14px"><span style="color: #52525B">Cuenta de ahorro</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500">L 0.00 → L 0.00</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #F4F4F5; font-size: 14px"><span style="color: #52525B">Gastos del mes</span><span style="font-weight: 500">Sin cambio</span></div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B91C1C' };
+  }
+}
+</script>
+</body>
+</html>

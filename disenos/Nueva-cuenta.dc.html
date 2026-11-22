@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nueva cuenta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#B91C1C}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: {{accent}}; font-family: 'Geist', system-ui, sans-serif; color: #18181B; position: relative; overflow: hidden">
+<header style="padding: 52px 16px 24px 24px; color: #FFFFFF; display: flex; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em">Nueva cuenta</h1>
+<a href="Mis-cuentas.dc.html" aria-label="Cerrar" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #FFFFFF">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+</a>
+</header>
+<form style="flex: 1; min-height: 0; display: flex; flex-direction: column; background: #FFFFFF; border-radius: 28px 28px 0 0">
+<div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 24px 16px; display: flex; flex-direction: column; gap: 20px">
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #18181B">Tipo de cuenta</legend>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 2px solid {{accent}}; background: #FEF2F2; color: {{accent}}; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="m-tipo" value="ahorro" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7h-1.2A6 6 0 0 0 7 9H5a2 2 0 0 0 0 4h1a7 7 0 0 0 3 4v3h3v-2h2v2h3v-3.5a6 6 0 0 0 2-4.5V7z"></path></svg>Ahorro</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="m-tipo" value="corriente" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 12 4l9 6"></path><line x1="5" y1="10" x2="5" y2="18"></line><line x1="10" y1="10" x2="10" y2="18"></line><line x1="14" y1="10" x2="14" y2="18"></line><line x1="19" y1="10" x2="19" y2="18"></line><line x1="3" y1="20" x2="21" y2="20"></line></svg>Corriente</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="m-tipo" value="tarjeta" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="7" y1="15" x2="10" y2="15"></line></svg>Tarjeta</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="m-tipo" value="efectivo" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.5"></circle></svg>Efectivo</label>
+</div>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="m-nombre" style="font-size: 14px; font-weight: 500; color: #18181B">Nombre de la cuenta</label>
+<input id="m-nombre" type="text" placeholder="Ej. Ahorro para el viaje" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="m-banco" style="font-size: 14px; font-weight: 500; color: #18181B">Banco</label>
+<div style="position: relative">
+<select id="m-banco" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%; appearance: none; -webkit-appearance: none; padding-right: 44px; color: #71717A">
+<option>Selecciona tu banco</option><option>[Banco A]</option><option>[Banco B]</option><option>Ninguno (efectivo)</option>
+</select>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 14px; top: 16px; pointer-events: none" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #18181B">Moneda</legend>
+<div style="display: flex; gap: 4px; padding: 4px; background: #F4F4F5; border-radius: 12px">
+<label style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; background: #FFFFFF; color: #18181B; font-weight: 600; box-shadow: 0 0 0 1px #D4D4D8; font-size: 15px; cursor: pointer">
+<input type="radio" name="m-moneda" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px">L</span>Lempiras</label>
+<label style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; background: transparent; color: #52525B; font-weight: 500; font-size: 15px; cursor: pointer">
+<input type="radio" name="m-moneda" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px">$</span>Dólares</label>
+</div>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="m-saldo" style="font-size: 14px; font-weight: 500; color: #18181B">Saldo actual</label>
+<div style="position: relative">
+<span style="position: absolute; left: 14px; top: 15px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 16px; color: #52525B" aria-hidden="true">L</span>
+<input id="m-saldo" type="text" inputmode="decimal" placeholder="0.00" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%; padding-left: 36px; font-family: 'Geist Mono', ui-monospace, monospace;">
+</div>
+<span style="font-size: 13px; color: #71717A">Lo que tienes hoy en esta cuenta. Puedes ajustarlo después.</span>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px">
+<legend style="padding: 0; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #18181B">Color</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-left: -6px">
+<label aria-label="Verde azulado" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #0F766E; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 5px #0F766E; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 19 7"></polyline></svg></span>
+</label>
+<label aria-label="Azul" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #1D4ED8;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Morado" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #6D28D9;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Pizarra" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #334155;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Ocre" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #A16207;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Fucsia" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="m-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #BE185D;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+</div>
+</fieldset>
+</div>
+<div style="padding: 12px 24px 28px; border-top: 1px solid #F4F4F5; background: #FFFFFF">
+<button type="submit" style="width: 100%; height: 52px; border: 0; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600">Guardar cuenta</button>
+</div>
+</form>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B91C1C' };
+  }
+}
+</script>
+</body>
+</html>

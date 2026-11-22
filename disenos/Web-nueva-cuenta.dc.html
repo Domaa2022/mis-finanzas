@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nueva cuenta — web</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #18181B">
+<aside style="flex: 1 1 240px; max-width: 100%; box-sizing: border-box; padding: 28px 16px; display: flex; flex-direction: column; gap: 28px; background: #FFFFFF; border-right: 1px solid #E4E4E7">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 12px">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="15" width="5" height="10" rx="1" fill="#18181B"></rect><rect x="11.5" y="9" width="5" height="16" rx="1" fill="#18181B"></rect><rect x="20" y="3" width="5" height="22" rx="1" fill="{{accent}}"></rect></svg>
+<span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Mis Finanzas</span>
+</div>
+<button type="button" style="display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 20px 0 8px; border: 0; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; color: {{accent}}; display: flex; align-items: center; justify-content: center; flex: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+</span>
+Registrar gasto
+</button>
+<nav aria-label="Navegación principal" style="display: flex; flex-direction: column; gap: 4px">
+<a href="Web-inicio.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path></svg>Inicio</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>Movimientos</a>
+<a href="Web-cuentas.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: #FEF2F2; color: {{accent}}; font-weight: 600; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>Mis cuentas</a>
+<a href="Web-ahorros.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg>Ahorros</a>
+<a href="Web-gastos-fijos.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>Gastos fijos</a>
+<a href="Web-reportes.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="13"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="9"></line></svg>Reportes</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Perfil</a>
+</nav>
+</aside>
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; background: #FFFFFF">
+<header style="background: {{accent}}; color: #FFFFFF; padding: 40px clamp(24px, 4vw, 56px) 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<a href="Web-cuentas.dc.html" style="display: inline-flex; align-items: center; gap: 4px; color: #FECACA; font-size: 14px; font-weight: 500; min-height: 32px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>Mis cuentas</a>
+<h1 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em">Nueva cuenta</h1>
+<span style="font-size: 15px; color: #FECACA">Agrega una cuenta bancaria, tarjeta o efectivo.</span>
+</div>
+
+</header>
+
+<main style="flex: 1; margin-top: -32px; box-sizing: border-box; padding: 32px clamp(24px, 4vw, 56px) 56px; background: #FFFFFF; border-radius: 28px 28px 0 0; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<form style="flex: 999 1 460px; min-width: 0; max-width: 640px; display: flex; flex-direction: column; gap: 24px">
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #18181B">Tipo de cuenta</legend>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 2px solid {{accent}}; background: #FEF2F2; color: {{accent}}; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="w-tipo" value="ahorro" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7h-1.2A6 6 0 0 0 7 9H5a2 2 0 0 0 0 4h1a7 7 0 0 0 3 4v3h3v-2h2v2h3v-3.5a6 6 0 0 0 2-4.5V7z"></path></svg>Ahorro</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="w-tipo" value="corriente" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10 12 4l9 6"></path><line x1="5" y1="10" x2="5" y2="18"></line><line x1="10" y1="10" x2="10" y2="18"></line><line x1="14" y1="10" x2="14" y2="18"></line><line x1="19" y1="10" x2="19" y2="18"></line><line x1="3" y1="20" x2="21" y2="20"></line></svg>Corriente</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="w-tipo" value="tarjeta" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="7" y1="15" x2="10" y2="15"></line></svg>Tarjeta</label>
+<label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 72px; border-radius: 12px; border: 1px solid #D4D4D8; background: #FFFFFF; color: #3F3F46; font-size: 13px; font-weight: 600; cursor: pointer">
+<input type="radio" name="w-tipo" value="efectivo" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.5"></circle></svg>Efectivo</label>
+</div>
+</fieldset>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="w-nombre" style="font-size: 14px; font-weight: 500; color: #18181B">Nombre de la cuenta</label>
+<input id="w-nombre" type="text" placeholder="Ej. Ahorro para el viaje" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="w-banco" style="font-size: 14px; font-weight: 500; color: #18181B">Banco</label>
+<div style="position: relative">
+<select id="w-banco" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%; appearance: none; -webkit-appearance: none; padding-right: 44px; color: #71717A">
+<option>Selecciona tu banco</option><option>[Banco A]</option><option>[Banco B]</option><option>Ninguno (efectivo)</option>
+</select>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 14px; top: 16px; pointer-events: none" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; align-items: start">
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 14px; font-weight: 500; color: #18181B">Moneda</legend>
+<div style="display: flex; gap: 4px; padding: 4px; background: #F4F4F5; border-radius: 12px">
+<label style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; background: #FFFFFF; color: #18181B; font-weight: 600; box-shadow: 0 0 0 1px #D4D4D8; font-size: 15px; cursor: pointer">
+<input type="radio" name="w-moneda" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px">L</span>Lempiras</label>
+<label style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; background: transparent; color: #52525B; font-weight: 500; font-size: 15px; cursor: pointer">
+<input type="radio" name="w-moneda" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px">$</span>Dólares</label>
+</div>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="w-saldo" style="font-size: 14px; font-weight: 500; color: #18181B">Saldo actual</label>
+<div style="position: relative">
+<span style="position: absolute; left: 14px; top: 15px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 16px; color: #52525B" aria-hidden="true">L</span>
+<input id="w-saldo" type="text" inputmode="decimal" placeholder="0.00" style="height: 50px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box; width: 100%; padding-left: 36px; font-family: 'Geist Mono', ui-monospace, monospace;">
+</div>
+<span style="font-size: 13px; color: #71717A">Lo que tienes hoy en esta cuenta. Puedes ajustarlo después.</span>
+</div>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px">
+<legend style="padding: 0; margin-bottom: 4px; font-size: 14px; font-weight: 500; color: #18181B">Color</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 4px; margin-left: -6px">
+<label aria-label="Verde azulado" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" checked style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #0F766E; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 5px #0F766E; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12 10 17 19 7"></polyline></svg></span>
+</label>
+<label aria-label="Azul" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #1D4ED8;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Morado" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #6D28D9;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Pizarra" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #334155;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Ocre" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #A16207;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+<label aria-label="Fucsia" style="position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<input type="radio" name="w-color" style="position: absolute; width: 1px; height: 1px; opacity: 0; margin: 0">
+<span style="width: 32px; height: 32px; border-radius: 50%; background: #BE185D;  display: flex; align-items: center; justify-content: center; color: #FFFFFF"></span>
+</label>
+</div>
+</fieldset>
+
+<div style="border-top: 1px solid #F4F4F5; padding-top: 8px">
+<label style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; cursor: pointer">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 500">Incluir en el saldo total</span><span style="font-size: 13px; color: #71717A">Desactívalo para cuentas que no quieras sumar.</span></span>
+<span style="position: relative; flex: none; width: 48px; height: 28px; border-radius: 999px; background: #18181B">
+<input type="checkbox" checked role="switch" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer">
+<span style="position: absolute; top: 3px; left: 23px; width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF"></span>
+</span>
+</label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px">
+<button type="submit" style="height: 50px; padding: 0 28px; border: 0; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Guardar cuenta</button>
+<a href="Web-cuentas.dc.html" style="height: 50px; padding: 0 24px; border: 1px solid #D4D4D8; border-radius: 8px; color: #18181B; font-size: 16px; font-weight: 500; display: inline-flex; align-items: center; text-decoration: none">Cancelar</a>
+</div>
+</form>
+<aside style="flex: 1 1 280px; min-width: 0; max-width: 360px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; color: #71717A">VISTA PREVIA</span>
+<div style="padding: 20px; border: 1px solid #E4E4E7; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; background: #FFFFFF">
+<span style="width: 44px; height: 44px; border-radius: 10px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 7h-1.2A6 6 0 0 0 7 9H5a2 2 0 0 0 0 4h1a7 7 0 0 0 3 4v3h3v-2h2v2h3v-3.5a6 6 0 0 0 2-4.5V7z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 600">Ahorro para el viaje</span><span style="font-size: 14px; color: #52525B">[Banco] · Lempiras</span></span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 22px; font-weight: 500">L 0.00</span>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #52525B">Así aparecerá en <strong style="color: #18181B; font-weight: 600">Tus cuentas</strong> en Inicio y en el selector al registrar un gasto.</p>
+</aside>
+</div>
+
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B91C1C' };
+  }
+}
+</script>
+</body>
+</html>

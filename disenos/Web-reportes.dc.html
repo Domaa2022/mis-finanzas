@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Reportes y presupuestos — web</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #18181B">
+<aside style="flex: 1 1 240px; max-width: 100%; box-sizing: border-box; padding: 28px 16px; display: flex; flex-direction: column; gap: 28px; background: #FFFFFF; border-right: 1px solid #E4E4E7">
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 12px">
+<svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="15" width="5" height="10" rx="1" fill="#18181B"></rect><rect x="11.5" y="9" width="5" height="16" rx="1" fill="#18181B"></rect><rect x="20" y="3" width="5" height="22" rx="1" fill="{{accent}}"></rect></svg>
+<span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Mis Finanzas</span>
+</div>
+<button type="button" style="display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 20px 0 8px; border: 0; border-radius: 999px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; color: {{accent}}; display: flex; align-items: center; justify-content: center; flex: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+</span>
+Registrar gasto
+</button>
+<nav aria-label="Navegación principal" style="display: flex; flex-direction: column; gap: 4px">
+<a href="Web-inicio.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path></svg>Inicio</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>Movimientos</a>
+<a href="Web-cuentas.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>Mis cuentas</a>
+<a href="Web-ahorros.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg>Ahorros</a>
+<a href="Web-gastos-fijos.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>Gastos fijos</a>
+<a href="Web-reportes.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: #FEF2F2; color: {{accent}}; font-weight: 600; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="20" x2="6" y2="13"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="18" y1="20" x2="18" y2="9"></line></svg>Reportes</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 10px; background: transparent; color: #3F3F46; font-weight: 500; font-size: 15px; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Perfil</a>
+</nav>
+</aside>
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; background: #FFFFFF">
+<header style="background: {{accent}}; color: #FFFFFF; padding: 40px clamp(24px, 4vw, 56px) 64px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 600; letter-spacing: -0.03em">Reportes y presupuestos</h1>
+<span style="font-size: 15px; color: #FECACA">Quedan 8 días de noviembre</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<div style="display: flex; align-items: center; gap: 4px">
+<button type="button" aria-label="Mes anterior" style="width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em">NOV 2026</span>
+<button type="button" aria-label="Mes siguiente" disabled style="width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; opacity: 0.4; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+<button type="button" style="height: 44px; padding: 0 18px; border: 1px solid rgba(255,255,255,0.45); border-radius: 999px; background: transparent; color: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><polyline points="7 10 12 15 17 10"></polyline><path d="M5 21h14"></path></svg>
+Exportar
+</button>
+</div>
+</header>
+
+<main style="flex: 1; margin-top: -32px; box-sizing: border-box; padding: 32px clamp(24px, 4vw, 56px) 56px; background: #FFFFFF; border-radius: 28px 28px 0 0; display: flex; flex-direction: column; gap: 32px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; background: #FAFAF9; border-radius: 14px"><span style="font-size: 14px; color: #52525B">Ingresos</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 24px; font-weight: 500">L 0.00</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; background: #FAFAF9; border-radius: 14px"><span style="font-size: 14px; color: #52525B">Gastos</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 24px; font-weight: 500">L 0.00</span><span style="font-size: 13px; color: #52525B">[x] % menos que en octubre</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; background: #FAFAF9; border-radius: 14px"><span style="font-size: 14px; color: #52525B">Presupuesto disponible</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 24px; font-weight: 500">L 0.00</span><div role="progressbar" aria-label="Presupuesto total usado" style="height: 6px; border-radius: 999px; background: #E4E4E7; overflow: hidden; margin-top: 4px"><div style="height: 100%; width: {{total}}; background: {{accent}}"></div></div></div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; background: #FAFAF9; border-radius: 14px"><span style="font-size: 14px; color: #52525B">Ahorrado</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 24px; font-weight: 500">L 0.00</span></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<section style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em">Presupuestos por categoría</h2>
+<a href="#" style="font-size: 14px; font-weight: 600; color: {{accent}}">Nuevo presupuesto</a>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v8a2 2 0 0 0 2 2a2 2 0 0 0 2-2V3"></path><line x1="6" y1="13" x2="6" y2="21"></line><path d="M18 21V3c-2 0-4 2-4 6v4h4"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Comida</span><span style="font-size: 13px; color: {{c0.statusColor}}">{{c0.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Comida" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c0.width}}; background: {{c0.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c0.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #1D4ED8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14v-5l-2-5H7l-2 5z"></path><circle cx="8" cy="17" r="2"></circle><circle cx="16" cy="17" r="2"></circle></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Transporte</span><span style="font-size: 13px; color: {{c1.statusColor}}">{{c1.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Transporte" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c1.width}}; background: {{c1.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c1.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #BE185D; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="4" x2="7" y2="20"></line><line x1="17" y1="4" x2="17" y2="20"></line></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Entretenimiento</span><span style="font-size: 13px; color: {{c2.statusColor}}">{{c2.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Entretenimiento" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c2.width}}; background: {{c2.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c2.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #6D28D9; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Compras</span><span style="font-size: 13px; color: {{c3.statusColor}}">{{c3.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Compras" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c3.width}}; background: {{c3.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c3.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #334155; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Salud</span><span style="font-size: 13px; color: {{c4.statusColor}}">{{c4.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Salud" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c4.width}}; background: {{c4.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c4.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #A16207; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"></polygon></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Servicios</span><span style="font-size: 13px; color: {{c5.statusColor}}">{{c5.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Servicios" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c5.width}}; background: {{c5.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c5.pct}}</span>
+</div>
+</div>
+</div>
+</section>
+
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 32px">
+<section style="display: flex; flex-direction: column; gap: 12px; padding: 20px; border: 1px solid #E4E4E7; border-radius: 16px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em">Gasto mensual</h2>
+<span style="font-size: 13px; color: #52525B">Últimos 6 meses</span>
+</div>
+<div role="img" aria-label="Gasto de los últimos seis meses" style="display: flex; gap: 6px; height: 180px; padding-top: 8px; border-bottom: 1px solid #E4E4E7">
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m0}}; background: #E4E4E7; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #71717A">JUN</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m1}}; background: #E4E4E7; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #71717A">JUL</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m2}}; background: #E4E4E7; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #71717A">AGO</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m3}}; background: #E4E4E7; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #71717A">SEP</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m4}}; background: #E4E4E7; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #71717A">OCT</span>
+</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%">
+<div style="flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center"><div style="width: 70%; max-width: 44px; height: {{m5}}; background: {{accent}}; border-radius: 6px 6px 2px 2px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #18181B; font-weight: 600">NOV</span>
+</div>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 16px; padding: 20px; border: 1px solid #E4E4E7; border-radius: 16px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em">En qué se fue el dinero</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div role="img" aria-label="Distribución del gasto por categoría" style="position: relative; width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(#0F766E 0% 34%, #1D4ED8 34% 56%, #BE185D 56% 72%, #6D28D9 72% 86%, #334155 86% 94%, #A16207 94% 100%); flex: none">
+<div style="position: absolute; inset: 22%; border-radius: 50%; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+<span style="font-size: 12px; color: #52525B">Total</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 16px; font-weight: 500">L 0.00</span>
+</div>
+</div>
+<div style="flex: 1 1 220px; min-width: 0">
+<ul style="margin: 0; padding: 0; list-style: none">
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F4F4F5; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #0F766E; flex: none"></span>
+<span style="flex: 1">Comida</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">34 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F4F4F5; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #1D4ED8; flex: none"></span>
+<span style="flex: 1">Transporte</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">22 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F4F4F5; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #BE185D; flex: none"></span>
+<span style="flex: 1">Entretenimiento</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">16 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F4F4F5; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #6D28D9; flex: none"></span>
+<span style="flex: 1">Compras</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">14 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #F4F4F5; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #334155; flex: none"></span>
+<span style="flex: 1">Salud</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">8 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; font-size: 14px">
+<span style="width: 10px; height: 10px; border-radius: 3px; background: #A16207; flex: none"></span>
+<span style="flex: 1">Servicios</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; color: #52525B; width: 44px; text-align: right">6 %</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; width: 76px; text-align: right">L 0.00</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"uso":{"editor":"range","default":80,"min":0,"max":100,"step":5,"unit":"%"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'mes' }; }
+  renderVals() {
+    const p = Math.max(0, Math.min(100, this.props.uso ?? 80));
+    const mult = [1.0, 0.8, 1.3, 0.55, 0.35, 0.9];
+    const colors = ["#0F766E", "#1D4ED8", "#BE185D", "#6D28D9", "#334155", "#A16207"];
+    const c = {};
+    mult.forEach((m, i) => {
+      const v = Math.round(p * m);
+      const over = v > 100, near = !over && v >= 80;
+      c['c' + i] = {
+        width: Math.min(v, 100) + '%',
+        pct: v + ' %',
+        bar: over ? '#D97706' : colors[i],
+        status: over ? 'Te pasaste del límite' : near ? 'Cerca del límite' : 'Vas bien',
+        statusColor: (over || near) ? '#B45309' : '#52525B'
+      };
+    });
+    const months = [52, 66, 58, 78, 64, Math.max(8, Math.round(p * 0.9))];
+    const h = {};
+    months.forEach((v, i) => { h['m' + i] = v + '%'; });
+    return Object.assign({ accent: this.props.accent ?? '#B91C1C', total: p + '%', totalPct: p + ' %' }, c, h);
+  }
+}
+</script>
+</body>
+</html>

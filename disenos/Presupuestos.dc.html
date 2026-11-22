@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Presupuestos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#B91C1C}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: {{accent}}; font-family: 'Geist', system-ui, sans-serif; color: #18181B; position: relative">
+
+<header style="padding: 52px 16px 24px 24px; color: #FFFFFF; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em">Presupuestos</h1>
+<div style="display: flex; align-items: center; gap: 4px">
+<button type="button" aria-label="Mes anterior" style="width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg></button>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.06em">NOV 2026</span>
+<button type="button" aria-label="Mes siguiente" disabled style="width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: #FFFFFF; opacity: 0.4; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; color: #FECACA">Disponible este mes</span>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 30px; font-weight: 500; letter-spacing: -0.02em">L 0.00 <span style="font-family: 'Geist', system-ui, sans-serif; font-size: 15px; font-weight: 400; color: #FECACA; letter-spacing: 0">de L [total]</span></span>
+<div role="progressbar" aria-label="Presupuesto total usado" style="height: 8px; border-radius: 999px; background: rgba(255,255,255,0.25); overflow: hidden; margin-top: 4px"><div style="height: 100%; width: {{total}}; background: #FFFFFF; border-radius: 999px"></div></div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; color: #FECACA"><span>Usado {{totalPct}}</span><span>Quedan 8 días</span></div>
+</div>
+</header>
+<main style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 24px 96px; display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 28px 28px 0 0">
+<nav aria-label="Secciones" style="display: flex; gap: 4px; padding: 4px; background: #F4F4F5; border-radius: 12px">
+<a href="Presupuestos.dc.html" aria-current="page" style="flex: 1; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; text-decoration: none; background: #FFFFFF; color: #18181B; font-weight: 600; box-shadow: 0 0 0 1px #D4D4D8;">Presupuestos</a>
+<a href="Reportes.dc.html" style="flex: 1; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; text-decoration: none; background: transparent; color: #52525B; font-weight: 500;">Reportes</a>
+</nav>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v8a2 2 0 0 0 2 2a2 2 0 0 0 2-2V3"></path><line x1="6" y1="13" x2="6" y2="21"></line><path d="M18 21V3c-2 0-4 2-4 6v4h4"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Comida</span><span style="font-size: 13px; color: {{c0.statusColor}}">{{c0.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Comida" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c0.width}}; background: {{c0.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c0.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #1D4ED8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14v-5l-2-5H7l-2 5z"></path><circle cx="8" cy="17" r="2"></circle><circle cx="16" cy="17" r="2"></circle></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Transporte</span><span style="font-size: 13px; color: {{c1.statusColor}}">{{c1.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Transporte" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c1.width}}; background: {{c1.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c1.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #BE185D; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="4" x2="7" y2="20"></line><line x1="17" y1="4" x2="17" y2="20"></line></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Entretenimiento</span><span style="font-size: 13px; color: {{c2.statusColor}}">{{c2.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Entretenimiento" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c2.width}}; background: {{c2.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c2.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #6D28D9; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Compras</span><span style="font-size: 13px; color: {{c3.statusColor}}">{{c3.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Compras" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c3.width}}; background: {{c3.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c3.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-bottom: 1px solid #F4F4F5;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #334155; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z"></path></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Salud</span><span style="font-size: 13px; color: {{c4.statusColor}}">{{c4.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Salud" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c4.width}}; background: {{c4.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c4.pct}}</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 0;">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #A16207; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"></polygon></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Servicios</span><span style="font-size: 13px; color: {{c5.statusColor}}">{{c5.status}}</span></div>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500">L 0.00</span><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">de L [límite]</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="progressbar" aria-label="Presupuesto de Servicios" style="flex: 1; height: 8px; border-radius: 999px; background: #F4F4F5; overflow: hidden"><div style="height: 100%; width: {{c5.width}}; background: {{c5.bar}}; border-radius: 999px"></div></div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #52525B; width: 44px; text-align: right">{{c5.pct}}</span>
+</div>
+</div>
+</div>
+<button type="button" style="height: 50px; border: 1.5px dashed #D4D4D8; border-radius: 12px; background: #FFFFFF; color: #18181B; font: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+Nuevo presupuesto
+</button>
+</main>
+
+<nav aria-label="Navegación principal" style="position: absolute; left: 0; right: 0; bottom: 0; height: 74px; box-sizing: border-box; padding: 6px 8px 14px; background: #FFFFFF; border-top: 1px solid #E4E4E7; display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr; align-items: end">
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path></svg>
+Inicio
+</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>
+Movimientos
+</a>
+<button type="button" style="border: 0; background: transparent; padding: 0; margin-top: -26px; display: flex; flex-direction: column; align-items: center; gap: 4px; font: inherit; cursor: pointer">
+<span style="width: 54px; height: 54px; border-radius: 50%; background: {{accent}}; border: 4px solid #FFFFFF; box-sizing: content-box; display: flex; align-items: center; justify-content: center; color: #FFFFFF; box-shadow: 0 0 0 1px #E4E4E7">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+</span>
+<span style="font-size: 11px; font-weight: 700; color: {{accent}}; white-space: nowrap">Registrar gasto</span>
+</button>
+<a href="Ahorros.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg>
+Ahorros
+</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+Perfil
+</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"uso":{"editor":"range","default":80,"min":0,"max":100,"step":5,"unit":"%"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'mes' }; }
+  renderVals() {
+    const p = Math.max(0, Math.min(100, this.props.uso ?? 80));
+    const mult = [1.0, 0.8, 1.3, 0.55, 0.35, 0.9];
+    const colors = ["#0F766E", "#1D4ED8", "#BE185D", "#6D28D9", "#334155", "#A16207"];
+    const c = {};
+    mult.forEach((m, i) => {
+      const v = Math.round(p * m);
+      const over = v > 100, near = !over && v >= 80;
+      c['c' + i] = {
+        width: Math.min(v, 100) + '%',
+        pct: v + ' %',
+        bar: over ? '#D97706' : colors[i],
+        status: over ? 'Te pasaste del límite' : near ? 'Cerca del límite' : 'Vas bien',
+        statusColor: (over || near) ? '#B45309' : '#52525B'
+      };
+    });
+    const months = [52, 66, 58, 78, 64, Math.max(8, Math.round(p * 0.9))];
+    const h = {};
+    months.forEach((v, i) => { h['m' + i] = v + '%'; });
+    return Object.assign({ accent: this.props.accent ?? '#B91C1C', total: p + '%', totalPct: p + ' %' }, c, h);
+  }
+}
+</script>
+</body>
+</html>

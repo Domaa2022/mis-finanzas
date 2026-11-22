@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/*
+ * Tokens del sistema de diseño (PLAN.md → "Sistema de diseño").
+ * Tailwind v4 genera las utilidades a partir de @theme:
+ *   bg-primary, text-ink, border-line, bg-surface, text-warn, etc.
+ */
+@theme {
+  /* Marca */
+  --color-primary: #b91c1c;
+  --color-primary-dark: #7f1d1d;
+  --color-primary-soft: #fef2f2;
+  --color-on-primary-muted: #fecaca;
+
+  /* Texto */
+  --color-ink: #18181b;
+  --color-ink-2: #3f3f46;
+  --color-ink-3: #52525b;
+  --color-muted: #71717a;
+  --color-faint: #a1a1aa;
+
+  /* Bordes y superficies */
+  --color-line: #e4e4e7;
+  --color-line-strong: #d4d4d8;
+  --color-surface: #fafaf9;
+  --color-surface-2: #f4f4f5;
+
+  /* Alertas: nunca rojo, para no confundirse con la marca */
+  --color-warn: #b45309;
+  --color-warn-bar: #d97706;
+  --color-warn-soft: #fffbeb;
+  --color-warn-line: #fcd34d;
+
+  /* Colores de cuenta y categoría */
+  --color-teal: #0f766e;
+  --color-blue: #1d4ed8;
+  --color-violet: #6d28d9;
+  --color-slate: #334155;
+  --color-ochre: #a16207;
+  --color-fuchsia: #be185d;
+
+  /* Tipografía (variables definidas por next/font en app/layout.tsx) */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Radios */
+  --radius-field: 8px;
+  --radius-card: 14px;
+  --radius-sheet: 28px;
+}
+
+@layer base {
+  html {
+    color: var(--color-ink);
+    background: #ffffff;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-primary-dark);
+  }
+
+  /* Foco visible y consistente en todos los controles */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* Sobre la franja roja el foco se ve en blanco */
+  .on-primary :focus-visible {
+    outline-color: #ffffff;
+  }
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Suscripciones y gastos fijos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#B91C1C}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: {{accent}}; font-family: 'Geist', system-ui, sans-serif; color: #18181B; position: relative">
+
+<header style="padding: 52px 16px 24px; color: #FFFFFF; display: flex; flex-direction: column; gap: 12px">
+<a href="Inicio-cuentas.dc.html" aria-label="Volver" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #FFFFFF">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 6 9 12 15 18"></polyline></svg>
+</a>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 8px">
+<h1 style="margin: 0; font-size: 24px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em">Gastos fijos</h1>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 30px; font-weight: 500; letter-spacing: -0.02em">L 0.00 <span style="font-family: 'Geist', system-ui, sans-serif; font-size: 15px; font-weight: 400; color: #FECACA; letter-spacing: 0">al mes · 7 cargos</span></span>
+</div>
+</header>
+
+<main style="flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 22px 24px 96px; display: flex; flex-direction: column; gap: 18px; background: #FFFFFF; border-radius: 28px 28px 0 0">
+<div role="group" aria-label="Filtrar" style="display: flex; gap: 4px; padding: 4px; background: #F4F4F5; border-radius: 12px">
+<button type="button" aria-pressed="true" style="flex: 1; height: 38px; border: 0; border-radius: 8px; font: inherit; font-size: 14px; cursor: pointer; background: #FFFFFF; color: #18181B; font-weight: 600; box-shadow: 0 0 0 1px #D4D4D8;">Todos</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 38px; border: 0; border-radius: 8px; font: inherit; font-size: 14px; cursor: pointer; background: transparent; color: #52525B; font-weight: 500;">Suscripciones</button>
+<button type="button" aria-pressed="false" style="flex: 1; height: 38px; border: 0; border-radius: 8px; font: inherit; font-size: 14px; cursor: pointer; background: transparent; color: #52525B; font-weight: 500;">Gastos fijos</button>
+</div>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #FFFBEB; border: 1px solid #FCD34D; color: #18181B; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+<span style="flex: 1; font-size: 14px; line-height: 1.4"><strong style="font-weight: 600">2 cobros en los próximos 7 días</strong> · <span style="font-family: 'Geist Mono', ui-monospace, monospace;">L 0.00</span> en total</span>
+</a>
+<section style="display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 4px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Suscripciones</h2>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #52525B">L 0.00 / mes</span>
+</div>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F4F4F5; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #BE185D; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Streaming de video</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 25 · Tarjeta de crédito</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">L 0.00</span><span style="font-size: 12px; font-weight: 600; color: #92400E; background: #FEF3C7; padding: 2px 8px; border-radius: 999px">En 3 días</span></span>
+</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F4F4F5; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #0F766E; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Música</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 28 · Tarjeta de crédito</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">L 0.00</span><span style="font-size: 12px; font-weight: 600; color: #92400E; background: #FEF3C7; padding: 2px 8px; border-radius: 999px">En 6 días</span></span>
+</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #1D4ED8; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H8a5 5 0 1 1 1.4-9.8A6 6 0 0 1 21 12a3.5 3.5 0 0 1-3.5 7z"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Almacenamiento en la nube</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Anual · 14 feb · Cuenta corriente</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">$ 0.00</span><span style="font-size: 12px; color: #71717A">14 feb</span></span>
+</a>
+</section>
+<section style="display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 4px">
+<h2 style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Gastos fijos</h2>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #52525B">L 0.00 / mes</span>
+</div>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F4F4F5; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #334155; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5a10 10 0 0 1 14 0"></path><path d="M8.5 16a5 5 0 0 1 7 0"></path><line x1="12" y1="19.5" x2="12.01" y2="19.5"></line><path d="M2 9a14 14 0 0 1 20 0"></path></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Internet del hogar</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 1 · Cuenta corriente</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">L 0.00</span><span style="font-size: 12px; color: #71717A">1 dic</span></span>
+</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F4F4F5; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #6D28D9; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"></rect><line x1="11" y1="18" x2="13" y2="18"></line></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Plan de celular</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 10 · Cuenta corriente</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">L 0.00</span><span style="font-size: 12px; color: #71717A">10 dic</span></span>
+</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #F4F4F5; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #A16207; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 4 14 12 14 11 22 20 10 12 10 13 2"></polygon></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Energía eléctrica</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 15 · Monto variable</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">≈ L 0.00</span><span style="font-size: 12px; color: #71717A">15 dic</span></span>
+</a>
+<a href="#" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; color: #18181B; text-decoration: none">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: #18181B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6v12"></path><path d="M18 6v12"></path><path d="M3 9v6"></path><path d="M21 9v6"></path><line x1="6" y1="12" x2="18" y2="12"></line></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Gimnasio</span><span style="font-size: 13px; color: #52525B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Mensual · día 1 · Efectivo</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex: none"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 15px; font-weight: 500">L 0.00</span><span style="font-size: 12px; color: #71717A">1 dic</span></span>
+</a>
+</section>
+<a href="Nuevo-gasto-fijo.dc.html" style="height: 50px; box-sizing: border-box; border: 1.5px dashed #D4D4D8; border-radius: 12px; color: #18181B; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+Agregar suscripción o gasto fijo
+</a>
+</main>
+
+<nav aria-label="Navegación principal" style="position: absolute; left: 0; right: 0; bottom: 0; height: 74px; box-sizing: border-box; padding: 6px 8px 14px; background: #FFFFFF; border-top: 1px solid #E4E4E7; display: grid; grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr; align-items: end">
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path></svg>
+Inicio
+</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>
+Movimientos
+</a>
+<button type="button" style="border: 0; background: transparent; padding: 0; margin-top: -26px; display: flex; flex-direction: column; align-items: center; gap: 4px; font: inherit; cursor: pointer">
+<span style="width: 54px; height: 54px; border-radius: 50%; background: {{accent}}; border: 4px solid #FFFFFF; box-sizing: content-box; display: flex; align-items: center; justify-content: center; color: #FFFFFF; box-shadow: 0 0 0 1px #E4E4E7">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+</span>
+<span style="font-size: 11px; font-weight: 700; color: {{accent}}; white-space: nowrap">Registrar gasto</span>
+</button>
+<a href="Ahorros.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></svg>
+Ahorros
+</a>
+<a href="#" style="display: flex; flex-direction: column; align-items: center; gap: 4px; min-height: 44px; justify-content: flex-end; color: #71717A; font-size: 11px; font-weight: 500; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+Perfil
+</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B91C1C' };
+  }
+}
+</script>
+</body>
+</html>

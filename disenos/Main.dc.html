@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Iniciar sesión — Mis Finanzas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#B91C1C;text-decoration:none}a:hover{color:#7F1D1D;text-decoration:underline}
+input::placeholder{color:#A1A1AA}
+input:focus{outline:2px solid #18181B;outline-offset:1px}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; background: #FFFFFF; font-family: 'Geist', system-ui, sans-serif; color: #18181B">
+
+<section style="flex: 1 1 480px; min-width: 0; background: {{accent}}; color: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; padding: 40px clamp(24px, 5vw, 72px); box-sizing: border-box">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><rect x="3" y="15" width="5" height="10" rx="1" fill="#FFFFFF"></rect><rect x="11.5" y="9" width="5" height="16" rx="1" fill="#FFFFFF"></rect><rect x="20" y="3" width="5" height="22" rx="1" fill="#FECACA"></rect></svg>
+<span style="font-size: 18px; font-weight: 600; letter-spacing: -0.01em">Mis Finanzas</span>
+</div>
+
+<form style="width: 100%; max-width: 464px; box-sizing: border-box; padding: 36px 32px 32px; border: 0; border-radius: 24px 24px 8px 8px; background: #FFFFFF; color: #18181B; display: flex; flex-direction: column; gap: 20px; align-self: center">
+<div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px">
+<h1 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 600; letter-spacing: -0.025em">Inicia sesión</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #52525B">Retoma tus gastos y ahorros donde los dejaste.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="d-email" style="font-size: 14px; font-weight: 500">Correo electrónico</label>
+<input id="d-email" type="email" placeholder="tu@correo.com" autocomplete="email" style="height: 48px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box">
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px">
+<label for="d-pass" style="font-size: 14px; font-weight: 500">Contraseña</label>
+<a href="#" style="font-size: 14px; font-weight: 500">¿Olvidaste tu contraseña?</a>
+</div>
+<div style="position: relative">
+<input id="d-pass" type="password" placeholder="••••••••" autocomplete="current-password" style="width: 100%; height: 48px; padding: 0 52px 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; font-size: 16px; color: #18181B; background: #FFFFFF; box-sizing: border-box">
+<button type="button" aria-label="Mostrar contraseña" style="position: absolute; top: 2px; right: 2px; width: 44px; height: 44px; border: 0; background: transparent; color: #52525B; cursor: pointer; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</button>
+</div>
+</div>
+
+<label style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #3F3F46; min-height: 24px; cursor: pointer">
+<input type="checkbox" style="width: 18px; height: 18px; margin: 0; accent-color: #B91C1C">
+Mantener la sesión iniciada
+</label>
+
+<button type="submit" style="height: 48px; border: 0; border-radius: 8px; background: {{accent}}; color: #FFFFFF; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer">Iniciar sesión</button>
+
+<div style="display: flex; align-items: center; gap: 12px; color: #71717A; font-size: 13px">
+<span style="flex: 1; height: 1px; background: #E4E4E7"></span>o continúa con<span style="flex: 1; height: 1px; background: #E4E4E7"></span>
+</div>
+
+<div style="display: flex; justify-content: center; gap: 16px">
+<button type="button" aria-label="Iniciar sesión con Google" style="width: 64px; height: 52px; border: 1px solid #D4D4D8; border-radius: 12px; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+<span style="width: 26px; height: 26px; border-radius: 50%; border: 1.5px dashed #A1A1AA; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #3F3F46">G</span>
+</button>
+<button type="button" aria-label="Iniciar sesión con Facebook" style="width: 64px; height: 52px; border: 1px solid #D4D4D8; border-radius: 12px; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+<span style="width: 26px; height: 26px; border-radius: 50%; border: 1.5px dashed #A1A1AA; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #3F3F46">f</span>
+</button>
+</div>
+
+<p style="margin: 8px 0 0; font-size: 14px; color: #52525B; text-align: center">¿No tienes cuenta? <a href="#" style="font-weight: 600">Crea una gratis</a></p>
+</form>
+
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: #FEE2E2">
+<span>© 2026 Mis Finanzas</span>
+<a href="#" style="color: #FEE2E2">Privacidad</a>
+<a href="#" style="color: #FEE2E2">Términos</a>
+</div>
+</section>
+
+<aside style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; padding: clamp(32px, 5vw, 72px); box-sizing: border-box; background: #FAFAF9; border-left: 1px solid #E7E5E4">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; color: #71717A">TU DINERO, EN UNA SOLA VISTA</span>
+
+<div style="display: flex; flex-direction: column; gap: 40px">
+<h2 style="margin: 0; font-size: clamp(40px, 4.6vw, 64px); line-height: 1.02; font-weight: 600; letter-spacing: -0.035em; color: #18181B">Controla tus gastos.<br><span style="color: {{accent}}">Haz crecer tus ahorros.</span></h2>
+
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 20px; font-size: 13px; color: #52525B">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 16px; height: 2px; background: {{accent}}"></span>Ahorro</span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 16px; height: 0; border-top: 2px dashed #A1A1AA"></span>Gastos</span>
+</div>
+<svg viewBox="0 0 560 240" preserveAspectRatio="none" style="width: 100%; height: 240px; display: block" aria-hidden="true">
+<line x1="0" y1="20" x2="560" y2="20" stroke="#E7E5E4" stroke-width="1" vector-effect="non-scaling-stroke"></line>
+<line x1="0" y1="85" x2="560" y2="85" stroke="#E7E5E4" stroke-width="1" vector-effect="non-scaling-stroke"></line>
+<line x1="0" y1="150" x2="560" y2="150" stroke="#E7E5E4" stroke-width="1" vector-effect="non-scaling-stroke"></line>
+<line x1="0" y1="215" x2="560" y2="215" stroke="#D6D3D1" stroke-width="1" vector-effect="non-scaling-stroke"></line>
+<path d="M0,200 C70,196 110,186 170,170 S290,140 350,112 S470,62 560,36 L560,215 L0,215 Z" fill="{{accent}}" fill-opacity="0.06"></path>
+<path d="M0,110 L93,128 L186,98 L280,140 L373,122 L466,150 L560,138" fill="none" stroke="#A1A1AA" stroke-width="2" stroke-dasharray="5 5" vector-effect="non-scaling-stroke"></path>
+<path d="M0,200 C70,196 110,186 170,170 S290,140 350,112 S470,62 560,36" fill="none" stroke="{{accent}}" stroke-width="2.5" vector-effect="non-scaling-stroke"></path>
+</svg>
+<div style="display: flex; justify-content: space-between; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #71717A">
+<span>ENE</span><span>FEB</span><span>MAR</span><span>ABR</span><span>MAY</span><span>JUN</span>
+</div>
+</figure>
+</div>
+
+<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 1px solid #E7E5E4; padding-top: 24px">
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: {{accent}}">01</span><span style="font-size: 14px; line-height: 1.4; color: #3F3F46">Registra cada gasto en segundos</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: {{accent}}">02</span><span style="font-size: 14px; line-height: 1.4; color: #3F3F46">Metas de ahorro con seguimiento mensual</span></li>
+<li style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: {{accent}}">03</span><span style="font-size: 14px; line-height: 1.4; color: #3F3F46">Tus datos cifrados y solo tuyos</span></li>
+</ul>
+</aside>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#B91C1C","options":["#B91C1C","#991B1B","#7F1D1D","#DC2626"]},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#B91C1C' };
+  }
+}
+</script>
+</body>
+</html>

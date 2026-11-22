@@ -1,4 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
+import { loadEnvConfig } from "@next/env";
+
+// Carga .env.local como lo hace Next. Sin Supabase configurado se usa una URL
+// inexistente: alcanza para probar las pantallas públicas y las redirecciones.
+loadEnvConfig(process.cwd());
+process.env.NEXT_PUBLIC_SUPABASE_URL ??= "http://127.0.0.1:54321";
+process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??= "sin-configurar";
 
 const PORT = 3100;
 
@@ -19,6 +26,7 @@ export default defineConfig({
   ],
   webServer: {
     command: `npx next dev --port ${PORT}`,
+    env: { NEXT_DIST_DIR: ".next-e2e" },
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

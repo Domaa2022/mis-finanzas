@@ -1,6 +1,9 @@
 import "server-only";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { REMEMBER_COOKIE } from "@/lib/auth/paths";
+import type { Database } from "./database.types";
+import { withRememberPreference } from "./cookies";
 import { getSupabaseEnv } from "./env";
 
 /**
@@ -10,23 +13,24 @@ import { getSupabaseEnv } from "./env";
  * Con Cache Components activo, leer cookies() es un dato de petición: el
  * componente que lo use debe ir dentro de un <Suspense>.
  */
-export async function createClient() {
+export async function createClient(options: { remember?: boolean } = {}) {
   const { url, key } = getSupabaseEnv();
   const cookieStore = await cookies();
+  const remember = options.remember ?? cookieStore.get(REMEMBER_COOKIE)?.value !== "0";
 
-  return createServerClient(url, key, {
+  return createServerClient<Database>(url, key, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
       },
       setAll(cookiesToSet) {
         try {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options),
+          cookiesToSet.forEach(({ name, value, options: cookieOptions }) =>
+            cookieStore.set(name, value, withRememberPreference(cookieOptions, remember)),
           );
         } catch {
           // Llamado desde un Server Component, donde no se pueden escribir
-          // cookies. Lo resuelve el proxy que refresca la sesión (Fase 1).
+          // cookies. El proxy ya refrescó la sesión en esta petición.
         }
       },
     },

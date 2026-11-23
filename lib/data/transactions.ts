@@ -2,7 +2,7 @@ import "server-only";
 import { monthTotals, type MonthTotals } from "@/lib/balances";
 import { endOfMonth, startOfMonth } from "@/lib/dates";
 import type { CurrencyCode, TransactionKind } from "@/lib/supabase/database.types";
-import { db } from "./core";
+import { db, getAccounts } from "./core";
 
 export type TransactionListItem = {
   id: string;
@@ -38,11 +38,48 @@ export async function getTransactions({ accountId, from, to, limit, kinds }: Fil
   if (limit) query = query.limit(limit);
   const { data, error } = await query;
   if (error) throw error;
-  return (data ?? []).map((t) => ({
-    ...(t as unknown as Omit<TransactionListItem, "counterpart">),
+  const rows = (data ?? []) as unknown as Omit<TransactionListItem, "counterpart">[];
+  const counterparts = await resolveCounterparts(rows);
+  return rows.map((t) => ({
+    ...t,
     amount_cents: Number(t.amount_cents),
-    counterpart: null,
+    counterpart: counterparts.get(t.id) ?? null,
   }));
+}
+
+/** Nombre de la otra cuenta en transferencias y de la meta en aportes. */
+async function resolveCounterparts(rows: Omit<TransactionListItem, "counterpart">[]): Promise<Map<string, string>> {
+  const result = new Map<string, string>();
+  const transferIds = [...new Set(rows.map((r) => r.transfer_id).filter((id): id is string => Boolean(id)))];
+  const goalIds = [...new Set(rows.map((r) => r.goal_id).filter((id): id is string => Boolean(id)))];
+  if (transferIds.length === 0 && goalIds.length === 0) return result;
+
+  const { supabase } = await db();
+  const [accounts, transfers, goals] = await Promise.all([
+    getAccounts(true),
+    transferIds.length
+      ? supabase.from("transfers").select("id, from_account_id, to_account_id").in("id", transferIds)
+      : Promise.resolve({ data: [] as { id: string; from_account_id: string; to_account_id: string }[] }),
+    goalIds.length
+      ? supabase.from("savings_goals").select("id, name").in("id", goalIds)
+      : Promise.resolve({ data: [] as { id: string; name: string }[] }),
+  ]);
+  const accountName = new Map(accounts.map((a) => [a.id, a.name]));
+  const transferById = new Map((transfers.data ?? []).map((t) => [t.id, t]));
+  const goalName = new Map((goals.data ?? []).map((g) => [g.id, g.name]));
+
+  for (const r of rows) {
+    if (r.transfer_id) {
+      const t = transferById.get(r.transfer_id);
+      const other = t && (r.kind === "transfer_out" ? t.to_account_id : t.from_account_id);
+      const name = other && accountName.get(other);
+      if (name) result.set(r.id, name);
+    } else if (r.goal_id) {
+      const name = goalName.get(r.goal_id);
+      if (name) result.set(r.id, name);
+    }
+  }
+  return result;
 }
 
 /** Totales del mes de `month` (cualquier fecha dentro del mes). Excluye transferencias (regla 1). */

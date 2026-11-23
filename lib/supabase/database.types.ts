@@ -247,7 +247,6 @@ export type Database = {
           p_from_account: string;
           p_to_account: string;
           p_amount_cents: number;
-          p_to_amount_cents?: number | null;
           p_exchange_rate?: number | null;
           p_occurred_on?: string | null;
           p_note?: string | null;

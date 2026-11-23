@@ -3,9 +3,13 @@
 import { Trash2 } from "lucide-react";
 import { useTransition } from "react";
 import { deleteTransaction } from "@/lib/actions/transactions";
+import { deleteTransfer } from "@/lib/actions/transfers";
 
-/** Borra un gasto o ingreso después de confirmar. */
-export function DeleteTransactionButton({ id, label }: { id: string; label: string }) {
+/**
+ * Borra un gasto o ingreso después de confirmar. Con `transferId` borra la
+ * transferencia completa (sus dos movimientos).
+ */
+export function DeleteTransactionButton({ id, label, transferId }: { id: string; label: string; transferId?: string | null }) {
   const [pending, startTransition] = useTransition();
   return (
     <button
@@ -13,9 +17,12 @@ export function DeleteTransactionButton({ id, label }: { id: string; label: stri
       aria-label={`Eliminar ${label}`}
       disabled={pending}
       onClick={() => {
-        if (!window.confirm(`¿Eliminar "${label}"? El saldo de la cuenta se ajustará.`)) return;
+        const message = transferId
+          ? `¿Eliminar "${label}"? Se deshará en las dos cuentas.`
+          : `¿Eliminar "${label}"? El saldo de la cuenta se ajustará.`;
+        if (!window.confirm(message)) return;
         startTransition(async () => {
-          const result = await deleteTransaction(id);
+          const result = transferId ? await deleteTransfer(transferId) : await deleteTransaction(id);
           if (!result.ok) window.alert(result.error);
         });
       }}

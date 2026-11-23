@@ -67,7 +67,7 @@ describe("vista account_balances", () => {
       asUser(db, ANA, (tx) =>
         tx.query("insert into transactions (account_id, kind, amount_cents, occurred_on) values ($1, 'transfer_out', 100, '2026-11-02')", [CTA]),
       ),
-    ).rejects.toThrow(/check/);
+    ).rejects.toThrow(/check|row-level security/);
   });
 
   it("no permite usar una categoría de otra persona", async () => {

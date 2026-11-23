@@ -55,11 +55,15 @@ Los aportes programados, los cobros fijos y los recordatorios se procesan con `p
 **cada hora**, según la fecha local de cada persona (`profiles.timezone`, por defecto `America/Tegucigalpa`).
 Es idempotente: correrlo de más no duplica nada.
 
-- **Con `pg_cron`** (Supabase lo incluye): la migración `…000310` lo programa sola. Si la extensión no está
-  disponible, verás un aviso al aplicarla.
-- **Además o en su lugar:** `GET /api/cron/notificaciones` con `Authorization: Bearer <CRON_SECRET>` corre
-  los jobs y envía las notificaciones push. En Vercel, [`vercel.json`](vercel.json) ya lo programa.
-  Necesita `SUPABASE_SERVICE_ROLE_KEY` y `CRON_SECRET`.
+- **Con `pg_cron`** (incluido en el plan gratis de Supabase): la migración `…000310` lo programa sola. Con
+  esto ya se registran los aportes y los cobros y se crean las notificaciones dentro de la app. Si la extensión
+  no está disponible, verás un aviso al aplicarla.
+- **Avisos push (opcional, sin programar por ahora):** `GET /api/cron/notificaciones` con
+  `Authorization: Bearer <CRON_SECRET>` corre los jobs y envía las notificaciones push pendientes. Necesita
+  `SUPABASE_SERVICE_ROLE_KEY` y `CRON_SECRET`. Nada lo llama todavía: un cron cada hora en Vercel requiere
+  el plan Pro. Para activarlo, agrega un `vercel.json` con
+  `{ "crons": [{ "path": "/api/cron/notificaciones", "schedule": "10 * * * *" }] }`, o llama la ruta desde
+  otro servicio de cron.
 
 ### 5. Notificaciones push (opcional)
 

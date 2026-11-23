@@ -166,7 +166,17 @@ export type NotificationRow = {
   title: string;
   body: string;
   href: string | null;
+  dedupe_key: string | null;
   read_at: string | null;
+  pushed_at: string | null;
+} & Timestamps;
+
+export type PushSubscriptionRow = {
+  id: string;
+  user_id: string;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
 } & Timestamps;
 
 export type AccountBalanceRow = {
@@ -235,6 +245,7 @@ export type Database = {
         [Rel<"budgets_category_id_user_id_fkey", ["category_id", "user_id"], "categories">]
       >;
       notifications: Table<NotificationRow, "kind" | "title" | "body">;
+      push_subscriptions: Table<PushSubscriptionRow, "endpoint" | "p256dh" | "auth">;
     };
     Views: {
       account_balances: { Row: AccountBalanceRow; Relationships: [] };
@@ -242,6 +253,7 @@ export type Database = {
     };
     Functions: {
       user_today: { Args: { p_user?: string }; Returns: string };
+      run_daily_jobs: { Args: Record<string, never>; Returns: Json };
       create_transfer: {
         Args: {
           p_from_account: string;

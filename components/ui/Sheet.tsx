@@ -16,7 +16,7 @@ type SheetProps = Omit<ComponentProps<"form">, "className" | "children"> & {
  * Hoja blanca con esquinas superiores de 28 px que se monta sobre la franja roja.
  * En web sube 32 px sobre el PageHeader, como en los diseños `Web-…`.
  */
-export function Sheet({ children, footer, as: Tag = "main", className, ...props }: SheetProps) {
+export function Sheet({ children, footer, as: Tag = "div", className, ...props }: SheetProps) {
   const Component = Tag as "form";
   return (
     <Component {...props} className="relative flex min-h-0 flex-1 flex-col rounded-t-[28px] bg-white lg:-mt-8">

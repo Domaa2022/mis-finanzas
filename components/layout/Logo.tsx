@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 export function Logo({ variant = "default", className }: { variant?: "default" | "on-primary"; className?: string }) {
   const onPrimary = variant === "on-primary";
   const bar = onPrimary ? "#FFFFFF" : "var(--color-ink)";
-  const accent = onPrimary ? "var(--color-on-primary-muted)" : "var(--color-primary)";
+  const accent = onPrimary ? "var(--color-on-primary-accent)" : "var(--color-primary)";
 
   return (
     <span className={cn("flex items-center gap-2.5", onPrimary ? "text-white" : "text-ink", className)}>

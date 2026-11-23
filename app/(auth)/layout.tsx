@@ -18,11 +18,11 @@ export default function AuthLayout({ children }: LayoutProps<"/">) {
           </p>
         </header>
 
-        <div className="flex flex-1 flex-col rounded-t-[28px] bg-white px-6 py-7 text-ink lg:w-full lg:max-w-[464px] lg:flex-none lg:self-center lg:rounded-[24px_24px_8px_8px] lg:px-8 lg:pt-9 lg:pb-8">
+        <main className="flex flex-1 flex-col rounded-t-[28px] bg-white px-6 py-7 text-ink lg:w-full lg:max-w-[464px] lg:flex-none lg:self-center lg:rounded-[24px_24px_8px_8px] lg:px-8 lg:pt-9 lg:pb-8">
           {children}
-        </div>
+        </main>
 
-        <footer className="hidden text-[13px] text-[#FEE2E2] lg:block">© 2026 Mis Finanzas</footer>
+        <footer className="hidden text-[13px] text-on-primary-muted lg:block">© 2026 Mis Finanzas</footer>
       </section>
 
       <aside className="hidden min-w-0 flex-col justify-between gap-12 border-l border-[#E7E5E4] bg-surface p-[clamp(32px,5vw,72px)] lg:flex lg:flex-[999_1_560px]">

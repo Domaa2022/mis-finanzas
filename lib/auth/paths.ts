@@ -1,5 +1,5 @@
 /** Rutas que no requieren sesión. */
-export const PUBLIC_PATHS = ["/login", "/registro", "/recuperar", "/auth"] as const;
+export const PUBLIC_PATHS = ["/login", "/registro", "/recuperar", "/auth", "/api/cron"] as const;
 
 /** Rutas de autenticación de las que se saca a quien ya tiene sesión. */
 export const GUEST_ONLY_PATHS = ["/login", "/registro", "/recuperar"] as const;

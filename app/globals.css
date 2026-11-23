@@ -10,7 +10,13 @@
   --color-primary: #b91c1c;
   --color-primary-dark: #7f1d1d;
   --color-primary-soft: #fef2f2;
-  --color-on-primary-muted: #fecaca;
+  /*
+   * Texto secundario sobre la franja roja. El plan indica #FECACA, pero sobre
+   * #B91C1C da 4.47:1 (no llega a AA). #FEE2E2 da 5.3:1. #FECACA queda solo
+   * para elementos decorativos (la barra alta del logo).
+   */
+  --color-on-primary-muted: #fee2e2;
+  --color-on-primary-accent: #fecaca;
 
   /* Texto */
   --color-ink: #18181b;

@@ -33,6 +33,7 @@ Las migraciones están en [`supabase/migrations/`](supabase/migrations/) y se ap
 | `…000600_push.sql` | `push_subscriptions` |
 | `…000700_tarjeta_bimoneda.sql` | `accounts.paired_account_id`: tarjetas con deuda en lempiras y en dólares |
 | `…000800_gastos_fijos_quincenales.sql` | Frecuencia quincenal para suscripciones y gastos fijos |
+| `…000900_ahorro_a_cuenta.sql` | Ahorro programado hacia una cuenta, sin meta (`savings_schedules.to_account_id`) |
 
 Dos formas de aplicarlas:
 
@@ -144,6 +145,8 @@ e2e/                   Playwright
   `credit_card`, una por moneda (la segunda apunta a la principal con `paired_account_id`). La app las muestra
   como una sola tarjeta con las dos deudas; al registrar un gasto o transferir aparecen por separado
   ("Visa · Lempiras" y "Visa · Dólares") para elegir en qué moneda se cargó.
+- **Ahorro programado a una cuenta:** cada aporte es una transferencia normal ("Ahorro programado"), no cuenta
+  como gasto y aparece en Movimientos. Las dos cuentas deben ser de la misma moneda.
 - **Gasto fijo con monto variable:** siempre queda pendiente para indicar el monto real; no se registra solo.
 - **Tasa de cambio:** se escribe como lempiras por 1 dólar.
 - **Reportes y presupuestos** se calculan en lempiras; los gastos en dólares se indican aparte.

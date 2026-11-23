@@ -20,7 +20,8 @@ export const getGoals = cache(async (includeArchived = false): Promise<Goal[]> =
 });
 
 export type ScheduleItem = SavingsScheduleRow & {
-  goal: { id: string; name: string; currency: CurrencyCode };
+  /** Meta o cuenta a la que va el ahorro. */
+  destination: { kind: "goal" | "account"; name: string; currency: CurrencyCode };
   account: { id: string; name: string };
 };
 
@@ -35,15 +36,15 @@ export const getSchedules = cache(async (): Promise<ScheduleItem[]> => {
   const goalById = new Map(goals.map((g) => [g.id, g]));
   const accountById = new Map(accounts.map((a) => [a.id, a]));
   return (data ?? []).flatMap((s) => {
-    const goal = goalById.get(s.goal_id);
+    const target = s.goal_id ? goalById.get(s.goal_id) : s.to_account_id ? accountById.get(s.to_account_id) : undefined;
     const account = accountById.get(s.account_id);
-    if (!goal || !account) return [];
+    if (!target || !account) return [];
     return [
       {
         ...s,
         amount_cents: s.amount_cents === null ? null : Number(s.amount_cents),
         percent: s.percent === null ? null : Number(s.percent),
-        goal: { id: goal.id, name: goal.name, currency: goal.currency },
+        destination: { kind: s.goal_id ? ("goal" as const) : ("account" as const), name: target.name, currency: target.currency },
         account: { id: account.id, name: account.name },
       },
     ];

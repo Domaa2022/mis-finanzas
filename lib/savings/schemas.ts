@@ -27,7 +27,10 @@ export type ContributionInput = z.infer<typeof contributionSchema>;
 
 export const scheduleSchema = z
   .object({
-    goalId: z.uuid("Elige una meta"),
+    /** A dónde va el ahorro: a una meta o directo a otra cuenta. */
+    destination: z.enum(["goal", "account"]),
+    goalId: z.string(),
+    toAccountId: z.string(),
     accountId: z.uuid("Elige una cuenta"),
     mode: z.enum(["fixed", "percent"]),
     amount: z.number().int().positive("El monto debe ser mayor que cero").nullable(),
@@ -38,6 +41,17 @@ export const scheduleSchema = z
     endDate: z.string(),
   })
   .superRefine((v, ctx) => {
+    if (v.destination === "goal" && !z.uuid().safeParse(v.goalId).success) {
+      ctx.addIssue({ code: "custom", path: ["goalId"], message: "Elige una meta" });
+    }
+    if (v.destination === "account") {
+      if (!z.uuid().safeParse(v.toAccountId).success) {
+        ctx.addIssue({ code: "custom", path: ["toAccountId"], message: "Elige la cuenta de ahorro" });
+      } else if (v.toAccountId === v.accountId) {
+        ctx.addIssue({ code: "custom", path: ["toAccountId"], message: "Elige una cuenta distinta a la de origen" });
+      }
+      if (v.ends === "on_goal") ctx.addIssue({ code: "custom", path: ["ends"], message: "Elige cuándo termina" });
+    }
     if (v.mode === "fixed" && !v.amount) ctx.addIssue({ code: "custom", path: ["amount"], message: "Escribe el monto de cada aporte" });
     if (v.mode === "percent" && !v.percent) ctx.addIssue({ code: "custom", path: ["percent"], message: "Escribe el porcentaje" });
     if (!validDays(v.frequency, v.days)) ctx.addIssue({ code: "custom", path: ["days"], message: "Elige los días del aporte" });

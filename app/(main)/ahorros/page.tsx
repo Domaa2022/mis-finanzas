@@ -76,11 +76,9 @@ async function SavingsContent() {
     <section className="flex flex-col gap-3 lg:gap-3.5">
       <div className="flex items-baseline justify-between gap-3">
         <h2 className="text-[17px] font-semibold tracking-[-0.01em] lg:text-lg">Ahorros programados</h2>
-        {goals.length > 0 && (
-          <Link href="/ahorros/programar" className="text-sm font-semibold">
-            Programar
-          </Link>
-        )}
+        <Link href="/ahorros/programar" className="text-sm font-semibold">
+          Programar
+        </Link>
       </div>
       {schedules.length > 0 ? (
         <div className="grid gap-3 lg:grid-cols-[repeat(auto-fill,minmax(320px,1fr))] lg:gap-4">
@@ -90,9 +88,7 @@ async function SavingsContent() {
         </div>
       ) : (
         <p className="text-sm leading-normal text-ink-3">
-          {goals.length > 0
-            ? "Programa un aporte automático y tu meta crecerá sola cada quincena o cada mes."
-            : "Crea una meta para programar aportes automáticos."}
+          Programa un aporte automático para una meta o directo a tu cuenta de ahorro, cada semana, quincena o mes.
         </p>
       )}
     </section>

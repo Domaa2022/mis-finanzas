@@ -79,20 +79,26 @@ export async function createSchedule(input: ScheduleInput): Promise<ActionResult
   const v = parsed.data;
   const { supabase } = await db();
 
-  const [{ data: goal }, { data: account }] = await Promise.all([
-    supabase.from("savings_goals").select("currency, archived_at").eq("id", v.goalId).maybeSingle(),
+  const toGoal = v.destination === "goal";
+  const [{ data: destination }, { data: account }] = await Promise.all([
+    toGoal
+      ? supabase.from("savings_goals").select("currency, archived_at").eq("id", v.goalId).maybeSingle()
+      : supabase.from("accounts").select("currency, archived_at").eq("id", v.toAccountId).maybeSingle(),
     supabase.from("accounts").select("currency, archived_at").eq("id", v.accountId).maybeSingle(),
   ]);
-  if (!goal || goal.archived_at) return fail("Elige una meta activa.");
+  if (!destination || destination.archived_at) return fail(toGoal ? "Elige una meta activa." : "Elige una cuenta de ahorro activa.");
   if (!account || account.archived_at) return fail("Elige una cuenta activa.");
-  if (goal.currency !== account.currency) {
-    return fail("La cuenta debe estar en la misma moneda que la meta.", { accountId: "Elige una cuenta en la moneda de la meta" });
+  if (destination.currency !== account.currency) {
+    return toGoal
+      ? fail("La cuenta debe estar en la misma moneda que la meta.", { accountId: "Elige una cuenta en la moneda de la meta" })
+      : fail("Las dos cuentas deben ser de la misma moneda.", { accountId: "Elige una cuenta en la misma moneda" });
   }
 
   const { data, error } = await supabase
     .from("savings_schedules")
     .insert({
-      goal_id: v.goalId,
+      goal_id: toGoal ? v.goalId : null,
+      to_account_id: toGoal ? null : v.toAccountId,
       account_id: v.accountId,
       mode: v.mode,
       amount_cents: v.mode === "fixed" ? v.amount : null,

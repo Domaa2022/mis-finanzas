@@ -16,7 +16,7 @@ export default function SchedulePage({ searchParams }: PageProps<"/ahorros/progr
     <>
       <PageHeader
         title="Programar ahorro"
-        subtitle="Aparta dinero para una meta de forma automática."
+        subtitle="Aparta dinero para una meta o una cuenta de forma automática."
         back={{ href: "/ahorros", label: "Ahorros", close: true }}
       />
       <Suspense
@@ -34,13 +34,20 @@ export default function SchedulePage({ searchParams }: PageProps<"/ahorros/progr
 
 async function Schedule({ searchParams }: { searchParams: PageProps<"/ahorros/programar">["searchParams"] }) {
   const [{ meta }, { goals, accounts }, { today }] = await Promise.all([searchParams, getSavingsOptions(), getProfile()]);
-  if (goals.length === 0) {
+  // Sin metas, el ahorro puede ir a una cuenta: hacen falta al menos dos cuentas.
+  if (goals.length === 0 && accounts.length < 2) {
     return (
       <Sheet>
         <div className="flex max-w-md flex-col gap-4">
-          <p className="text-[15px] leading-normal text-ink-2">Primero crea una meta: el ahorro programado aparta dinero para ella.</p>
+          <p className="text-[15px] leading-normal text-ink-2">
+            El ahorro programado aparta dinero para una meta o lo pasa a otra cuenta. Crea una meta o agrega una cuenta
+            de ahorro para empezar.
+          </p>
           <Link href="/ahorros/nueva-meta" className={buttonClasses({ block: true })}>
             Crear una meta
+          </Link>
+          <Link href="/cuentas/nueva" className={buttonClasses({ block: true, variant: "secondary" })}>
+            Agregar una cuenta
           </Link>
         </div>
       </Sheet>

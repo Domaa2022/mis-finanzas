@@ -36,6 +36,11 @@ import type { CurrencyCode } from "@/lib/supabase/database.types";
 export type ScheduleGoal = SelectCardOption & { currency: CurrencyCode; remaining_cents: number };
 export type ScheduleAccount = SelectCardOption & { currency: CurrencyCode };
 
+const DESTINATION_OPTIONS = [
+  { value: "goal", label: "A una meta" },
+  { value: "account", label: "A una cuenta" },
+] as const;
+
 const MODE_OPTIONS = [
   { value: "fixed", label: "Monto fijo" },
   { value: "percent", label: "Porcentaje" },
@@ -78,15 +83,25 @@ export function ScheduleForm({
   const [pending, startTransition] = useTransition();
   const goalId = defaultGoalId ?? goals[0]?.value ?? "";
   const goalCurrency = goals.find((g) => g.value === goalId)?.currency ?? "HNL";
+  // Cuentas que pueden recibir el ahorro: todas menos las tarjetas de crédito.
+  const savingsAccounts = accounts.filter((a) => a.accountType !== "credit_card");
+  const startWithAccount = goals.length === 0;
+  const firstSavings = savingsAccounts.find((a) => a.accountType === "savings") ?? savingsAccounts[0];
+  const sourceFor = (currency: CurrencyCode, exclude?: string) =>
+    accounts.find((a) => a.currency === currency && a.value !== exclude)?.value ?? "";
   const initial: ScheduleInput = {
+    destination: startWithAccount ? "account" : "goal",
     goalId,
-    accountId: accounts.find((a) => a.currency === goalCurrency)?.value ?? "",
+    toAccountId: startWithAccount ? (firstSavings?.value ?? "") : "",
+    accountId: startWithAccount
+      ? sourceFor(firstSavings?.currency ?? "HNL", firstSavings?.value)
+      : sourceFor(goalCurrency),
     mode: "fixed",
     amount: null,
     percent: null,
     frequency: "biweekly",
     days: DEFAULT_DAYS.biweekly,
-    ends: "on_goal",
+    ends: startWithAccount ? "never" : "on_goal",
     endDate: "",
   };
   const { control, register, handleSubmit, setValue, formState, reset } = useForm<ScheduleInput>({
@@ -94,9 +109,11 @@ export function ScheduleForm({
     defaultValues: initial,
   });
   const v = useWatch({ control }) as ScheduleInput;
-  const goal = goals.find((g) => g.value === v.goalId);
-  const currency = goal?.currency ?? "HNL";
-  const accountOptions = accounts.filter((a) => a.currency === currency);
+  const toGoal = v.destination === "goal";
+  const goal = toGoal ? goals.find((g) => g.value === v.goalId) : undefined;
+  const toAccount = toGoal ? undefined : savingsAccounts.find((a) => a.value === v.toAccountId);
+  const currency = (toGoal ? goal?.currency : toAccount?.currency) ?? "HNL";
+  const accountOptions = accounts.filter((a) => a.currency === currency && a.value !== v.toAccountId);
   const daysOk = validDays(v.frequency, v.days ?? []);
   const runs = daysOk ? upcomingRuns(v.frequency, v.days, nextRunDate(v.frequency, v.days, today), 3) : [];
   const eta =
@@ -140,21 +157,79 @@ export function ScheduleForm({
 
           <Controller
             control={control}
-            name="goalId"
-            render={({ field, fieldState }) => (
-              <AccountSelectCard
-                label="Meta"
-                options={goals}
+            name="destination"
+            render={({ field }) => (
+              <SegmentedControl
+                legend="¿A dónde va el ahorro?"
+                options={DESTINATION_OPTIONS}
                 value={field.value}
-                error={fieldState.error?.message}
-                onChange={(id) => {
-                  field.onChange(id);
-                  const c = goals.find((g) => g.value === id)?.currency;
-                  setValue("accountId", accounts.find((a) => a.currency === c)?.value ?? "");
+                onChange={(d) => {
+                  field.onChange(d);
+                  if (d === "account") {
+                    const to = v.toAccountId || firstSavings?.value || "";
+                    const c = savingsAccounts.find((a) => a.value === to)?.currency ?? "HNL";
+                    setValue("toAccountId", to);
+                    setValue("accountId", sourceFor(c, to));
+                    if (v.ends === "on_goal") setValue("ends", "never");
+                  } else {
+                    setValue("goalId", v.goalId || goals[0]?.value || "");
+                    setValue("accountId", sourceFor(goals.find((g) => g.value === (v.goalId || goals[0]?.value))?.currency ?? "HNL"));
+                    setValue("ends", "on_goal");
+                  }
                 }}
               />
             )}
           />
+
+          {toGoal ? (
+            goals.length > 0 ? (
+              <Controller
+                control={control}
+                name="goalId"
+                render={({ field, fieldState }) => (
+                  <AccountSelectCard
+                    label="Meta"
+                    options={goals}
+                    value={field.value}
+                    error={fieldState.error?.message}
+                    onChange={(id) => {
+                      field.onChange(id);
+                      setValue("accountId", sourceFor(goals.find((g) => g.value === id)?.currency ?? "HNL"));
+                    }}
+                  />
+                )}
+              />
+            ) : (
+              <p className="text-[15px] leading-normal text-ink-2">
+                Aún no tienes metas.{" "}
+                <Link href="/ahorros/nueva-meta" className="font-semibold">
+                  Crea una meta
+                </Link>{" "}
+                o aparta el ahorro directo a una cuenta.
+              </p>
+            )
+          ) : (
+            <Controller
+              control={control}
+              name="toAccountId"
+              render={({ field, fieldState }) => (
+                <AccountSelectCard
+                  label="A la cuenta"
+                  options={savingsAccounts}
+                  value={field.value}
+                  error={fieldState.error?.message}
+                  placeholder="Agrega una cuenta de ahorro"
+                  onChange={(id) => {
+                    field.onChange(id);
+                    const c = savingsAccounts.find((a) => a.value === id)?.currency ?? "HNL";
+                    if (v.accountId === id || accounts.find((a) => a.value === v.accountId)?.currency !== c) {
+                      setValue("accountId", sourceFor(c, id));
+                    }
+                  }}
+                />
+              )}
+            />
+          )}
           <Controller
             control={control}
             name="accountId"
@@ -271,7 +346,7 @@ export function ScheduleForm({
 
           <fieldset className="m-0 flex flex-col border-0 p-0">
             <legend className="mb-2 p-0 text-sm font-medium">Termina</legend>
-            {ENDS.map((e) => (
+            {ENDS.filter((e) => toGoal || e.value !== "on_goal").map((e) => (
               <label key={e.value} className="flex min-h-11 cursor-pointer items-center gap-3 text-[15px]">
                 <input type="radio" value={e.value} className="size-5 accent-ink" {...register("ends")} />
                 {e.label}

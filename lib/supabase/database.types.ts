@@ -110,7 +110,9 @@ export type SavingsGoalRow = {
 export type SavingsScheduleRow = {
   id: string;
   user_id: string;
-  goal_id: string;
+  /** Destino: una meta o una cuenta (to_account_id), nunca las dos. */
+  goal_id: string | null;
+  to_account_id: string | null;
   account_id: string;
   mode: ScheduleMode;
   amount_cents: number | null;
@@ -226,10 +228,11 @@ export type Database = {
       savings_goals: Table<SavingsGoalRow, "name" | "color" | "target_cents">;
       savings_schedules: Table<
         SavingsScheduleRow,
-        "goal_id" | "account_id" | "mode" | "frequency" | "days",
+        "account_id" | "mode" | "frequency" | "days",
         [
           Rel<"savings_schedules_goal_id_user_id_fkey", ["goal_id", "user_id"], "savings_goals">,
           Rel<"savings_schedules_account_id_user_id_fkey", ["account_id", "user_id"], "accounts">,
+          Rel<"savings_schedules_to_account_fk", ["to_account_id", "user_id"], "accounts">,
         ]
       >;
       recurring_charges: Table<

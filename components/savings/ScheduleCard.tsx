@@ -16,7 +16,7 @@ export function ScheduleCard({ schedule }: { schedule: ScheduleItem }) {
   const head = scheduleHeadline(
     schedule.mode,
     schedule.frequency,
-    formatMoney(schedule.amount_cents ?? 0, schedule.goal.currency),
+    formatMoney(schedule.amount_cents ?? 0, schedule.destination.currency),
     schedule.percent,
   );
   const title = `${head.figure} ${head.rest}`;
@@ -31,7 +31,7 @@ export function ScheduleCard({ schedule }: { schedule: ScheduleItem }) {
           <span className="font-mono font-medium">{head.figure}</span> {head.rest}
         </span>
         <span className="truncate text-[13px] text-ink-3">
-          A {schedule.goal.name} · desde {schedule.account.name}
+          A {schedule.destination.name} · desde {schedule.account.name}
         </span>
         <span className="text-[13px] text-ink-3">{active ? `Próximo: ${shortDate(schedule.next_run_on)}` : "En pausa"}</span>
       </div>
@@ -53,7 +53,7 @@ export function ScheduleCard({ schedule }: { schedule: ScheduleItem }) {
       <Switch
         checked={active}
         disabled={pending}
-        aria-label={`Ahorro programado a ${schedule.goal.name} activo`}
+        aria-label={`Ahorro programado a ${schedule.destination.name} activo`}
         onCheckedChange={(next) =>
           startTransition(async () => {
             setActive(next);

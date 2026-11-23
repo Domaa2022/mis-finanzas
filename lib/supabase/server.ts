@@ -14,8 +14,10 @@ import { getSupabaseEnv } from "./env";
  * componente que lo use debe ir dentro de un <Suspense>.
  */
 export async function createClient(options: { remember?: boolean } = {}) {
-  const { url, key } = getSupabaseEnv();
+  // cookies() primero: durante el build suspende el prerender aquí, antes de
+  // exigir las variables de entorno (que en el build pueden no existir).
   const cookieStore = await cookies();
+  const { url, key } = getSupabaseEnv();
   const remember = options.remember ?? cookieStore.get(REMEMBER_COOKIE)?.value !== "0";
 
   return createServerClient<Database>(url, key, {

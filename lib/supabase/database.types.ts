@@ -119,7 +119,7 @@ export type SavingsScheduleRow = {
   end_date: string | null;
   active: boolean;
   next_run_on: string;
-  last_contribution_on: string | null;
+  last_run_on: string;
 } & Timestamps;
 
 export type RecurringChargeRow = {
@@ -210,7 +210,7 @@ export type Database = {
       savings_goals: Table<SavingsGoalRow, "name" | "color" | "target_cents">;
       savings_schedules: Table<
         SavingsScheduleRow,
-        "goal_id" | "account_id" | "mode" | "frequency" | "days" | "next_run_on",
+        "goal_id" | "account_id" | "mode" | "frequency" | "days",
         [
           Rel<"savings_schedules_goal_id_user_id_fkey", ["goal_id", "user_id"], "savings_goals">,
           Rel<"savings_schedules_account_id_user_id_fkey", ["account_id", "user_id"], "accounts">,

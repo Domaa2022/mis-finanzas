@@ -21,11 +21,6 @@ export function describeTransaction(t: TransactionListItem): string {
   }
 }
 
-/** Gastos, ingresos y transferencias se pueden borrar desde la lista; los aportes, desde Ahorros. */
-function canDelete(t: TransactionListItem): boolean {
-  return t.kind !== "goal_contribution";
-}
-
 function signedCents(t: TransactionListItem): number {
   return t.kind === "income" || t.kind === "transfer_in" ? t.amount_cents : -t.amount_cents;
 }
@@ -95,7 +90,7 @@ export function TransactionList({ items, today, grouped = false, deletable = fal
                     </span>
                   </span>
                   <Amount t={t} className="text-[15px]" />
-                  {deletable && canDelete(t) && (
+                  {deletable && (
                     <DeleteTransactionButton id={t.id} transferId={t.transfer_id} label={describeTransaction(t)} />
                   )}
                 </li>
@@ -139,9 +134,7 @@ export function TransactionList({ items, today, grouped = false, deletable = fal
                 </td>
                 {deletable && (
                   <td className="w-[52px] px-2 py-1 text-right">
-                    {canDelete(t) && (
-                      <DeleteTransactionButton id={t.id} transferId={t.transfer_id} label={describeTransaction(t)} />
-                    )}
+                    <DeleteTransactionButton id={t.id} transferId={t.transfer_id} label={describeTransaction(t)} />
                   </td>
                 )}
               </tr>

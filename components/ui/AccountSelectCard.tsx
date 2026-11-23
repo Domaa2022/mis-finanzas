@@ -2,6 +2,7 @@
 
 import { ChevronDown, type LucideIcon } from "lucide-react";
 import { useId, type ReactNode } from "react";
+import { ACCOUNT_TYPE_META, type AccountType } from "@/lib/accounts/meta";
 import { cn } from "@/lib/cn";
 import { IconBadge } from "./IconBadge";
 
@@ -10,8 +11,12 @@ export type SelectCardOption = {
   label: string;
   subtitle: string;
   color: string;
+  /** Ícono como componente (solo desde componentes de cliente). */
   icon?: LucideIcon;
+  /** Nombre del ícono guardado en la base (metas, categorías). */
   iconName?: string;
+  /** Tipo de cuenta: usa su ícono. Serializable desde el servidor. */
+  accountType?: AccountType;
 };
 
 /**
@@ -52,7 +57,11 @@ export function AccountSelectCard({
         )}
       >
         {current ? (
-          <IconBadge icon={current.icon} name={current.iconName} color={current.color} />
+          <IconBadge
+            icon={current.icon ?? (current.accountType ? ACCOUNT_TYPE_META[current.accountType].icon : undefined)}
+            name={current.iconName}
+            color={current.color}
+          />
         ) : (
           <span className="size-10 flex-none rounded-[10px] bg-surface-2" />
         )}

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Bell, ChartNoAxesColumn, Plus, Repeat, type LucideIcon } from "lucide-react";
+import { ChartNoAxesColumn, Plus, Repeat, type LucideIcon } from "lucide-react";
 import { Suspense, type ReactNode } from "react";
 import { AccountPill, AccountTiles, type FilterAccount } from "@/components/home/AccountFilter";
 import { Logo } from "@/components/layout/Logo";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { ListSkeleton, StatsSkeleton, TilesSkeleton } from "@/components/skeletons/Skeletons";
 import { TransactionList } from "@/components/transactions/TransactionList";
 import { Money } from "@/components/ui/Money";
@@ -28,15 +29,7 @@ async function selectedAccount(searchParams: SearchParams): Promise<string | nul
 }
 
 export default function HomePage({ searchParams }: PageProps<"/">) {
-  const bell = (
-    <Link
-      href="/notificaciones"
-      aria-label="Notificaciones"
-      className="flex size-11 items-center justify-center rounded-full text-white hover:bg-white/10 hover:text-white"
-    >
-      <Bell aria-hidden size={22} strokeWidth={1.75} />
-    </Link>
-  );
+  const bell = <NotificationBell />;
 
   return (
     <>

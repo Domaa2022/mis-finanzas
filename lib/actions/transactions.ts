@@ -36,13 +36,13 @@ export async function createTransaction(input: TransactionInput): Promise<Action
 }
 
 /**
- * Borra un gasto o ingreso. Las transferencias se borran completas (las dos
- * partes) con deleteTransfer; los aportes a metas, con su propia acción.
+ * Borra un gasto, ingreso o aporte a meta (el aporte devuelve el dinero a la
+ * cuenta). Las transferencias se borran completas con deleteTransfer.
  */
 export async function deleteTransaction(id: string): Promise<ActionResult> {
   if (!z.uuid().safeParse(id).success) return fail(INVALID_FORM);
   const { supabase } = await db();
-  const { error } = await supabase.from("transactions").delete().eq("id", id).in("kind", ["expense", "income"]);
+  const { error } = await supabase.from("transactions").delete().eq("id", id).in("kind", ["expense", "income", "goal_contribution"]);
   if (error) return fail(dbErrorMessage(error));
   refresh();
   return { ok: true, data: undefined };

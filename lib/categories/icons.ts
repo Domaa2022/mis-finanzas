@@ -18,6 +18,7 @@ import {
   ShoppingBag,
   ShoppingCart,
   Store,
+  Target,
   Tv,
   Utensils,
   Wifi,
@@ -52,6 +53,7 @@ export const ICONS: Record<string, { icon: LucideIcon; label: string }> = {
   store: { icon: Store, label: "Negocio" },
   "circle-plus": { icon: CirclePlus, label: "Otros ingresos" },
   "circle-ellipsis": { icon: CircleEllipsis, label: "Otros" },
+  target: { icon: Target, label: "Meta" },
 };
 
 export function iconFor(name: string | null | undefined): LucideIcon {

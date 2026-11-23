@@ -7,6 +7,7 @@ import {
   monthlyEquivalent,
   nextChargeDate,
   validDayRule,
+  yearlyEquivalent,
 } from "./recurring";
 
 describe("nextChargeDate", () => {
@@ -31,6 +32,18 @@ describe("nextChargeDate", () => {
     expect(nextChargeDate("yearly", 229, "2027-03-01")).toBe("2028-02-29");
   });
 
+  it("quincenal: día 15 y último día", () => {
+    expect(nextChargeDate("biweekly", 1531, "2026-11-10")).toBe("2026-11-15");
+    expect(nextChargeDate("biweekly", 1531, "2026-11-15")).toBe("2026-11-30");
+    expect(nextChargeDate("biweekly", 1531, "2026-11-30")).toBe("2026-12-15");
+    expect(nextChargeDate("biweekly", 1531, "2027-02-15")).toBe("2027-02-28");
+  });
+
+  it("quincenal: día 1 y día 15", () => {
+    expect(nextChargeDate("biweekly", 115, "2026-11-15")).toBe("2026-12-01");
+    expect(nextChargeDate("biweekly", 115, "2026-12-01")).toBe("2026-12-15");
+  });
+
   it("semanal", () => {
     expect(nextChargeDate("weekly", 1, "2026-11-22")).toBe("2026-11-23");
   });
@@ -49,6 +62,11 @@ describe("validDayRule", () => {
     expect(validDayRule("yearly", 229)).toBe(true);
     expect(validDayRule("yearly", 231)).toBe(false);
     expect(validDayRule("yearly", 1301)).toBe(false);
+    expect(validDayRule("biweekly", 1531)).toBe(true);
+    expect(validDayRule("biweekly", 115)).toBe(true);
+    expect(validDayRule("biweekly", 1515)).toBe(false);
+    expect(validDayRule("biweekly", 2010)).toBe(false);
+    expect(validDayRule("biweekly", 1532)).toBe(false);
   });
 });
 
@@ -57,6 +75,8 @@ describe("montos y textos", () => {
     expect(monthlyEquivalent("monthly", 30000)).toBe(30000);
     expect(monthlyEquivalent("yearly", 120000)).toBe(10000);
     expect(monthlyEquivalent("weekly", 1200)).toBe(5200);
+    expect(monthlyEquivalent("biweekly", 50000)).toBe(100000);
+    expect(yearlyEquivalent("biweekly", 50000)).toBe(1200000);
   });
 
   it("describe el día de cobro", () => {
@@ -64,6 +84,8 @@ describe("montos y textos", () => {
     expect(dayRuleLabel("monthly", -1)).toBe("último día");
     expect(dayRuleLabel("yearly", 214)).toBe("14 feb");
     expect(dayRuleLabel("weekly", 5)).toBe("viernes");
+    expect(dayRuleLabel("biweekly", 1531)).toBe("días 15 y último");
+    expect(dayRuleLabel("biweekly", 115)).toBe("días 1 y 15");
   });
 
   it("dice cuánto falta", () => {

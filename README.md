@@ -32,6 +32,7 @@ Las migraciones están en [`supabase/migrations/`](supabase/migrations/) y se ap
 | `…000500_presupuestos.sql` | `budgets` |
 | `…000600_push.sql` | `push_subscriptions` |
 | `…000700_tarjeta_bimoneda.sql` | `accounts.paired_account_id`: tarjetas con deuda en lempiras y en dólares |
+| `…000800_gastos_fijos_quincenales.sql` | Frecuencia quincenal para suscripciones y gastos fijos |
 
 Dos formas de aplicarlas:
 

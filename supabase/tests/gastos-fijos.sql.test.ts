@@ -57,6 +57,10 @@ describe("next_charge_date (SQL) = nextChargeDate (TS)", () => {
       ["yearly", 229],
       ["yearly", 1231],
       ["weekly", 3],
+      ["biweekly", 1531],
+      ["biweekly", 115],
+      ["biweekly", 1030],
+      ["biweekly", 3031],
     ];
     const dates: string[] = [];
     for (let d = "2026-01-01"; d <= "2028-12-31"; d = addDays(d, 1)) dates.push(d);
@@ -146,5 +150,26 @@ describe("regla 8", () => {
     expect(rows).toHaveLength(1);
     expect(rows[0].title).toBe("En 3 días se cobra Energía");
     expect(rows[0].body).toBe("L 800.00 de Corriente.");
+  });
+});
+
+describe("quincenal", () => {
+  const setRule = (id: string, rule: number) =>
+    db.query("update recurring_charges set frequency = 'biweekly', day_rule = $2 where id = $1", [id, rule]);
+
+  it("acepta día 15 y último día y calcula el próximo cobro", async () => {
+    const id = await charge({ auto: true, next: "2026-11-15" });
+    await setRule(id, 1531);
+    await db.query("update recurring_charges set next_charge_on = '2026-11-15' where id = $1", [id]);
+    expect(await process(id, "2026-11-15")).toBe(1);
+    const r = await one<{ d: string }>(db, "select next_charge_on::text d from recurring_charges where id = $1", [id]);
+    expect(r.d).toBe("2026-11-30");
+  });
+
+  it("rechaza días repetidos o en desorden", async () => {
+    const id = await charge({ auto: true, next: "2026-11-15" });
+    await expect(setRule(id, 1515)).rejects.toThrow(/check/);
+    await expect(setRule(id, 3015)).rejects.toThrow(/check/);
+    await expect(setRule(id, 1532)).rejects.toThrow(/check/);
   });
 });

@@ -16,7 +16,7 @@ export type Frequency = "weekly" | "biweekly" | "monthly";
 export type ScheduleMode = "fixed" | "percent";
 export type ScheduleEnds = "on_goal" | "on_date" | "never";
 export type RecurringKind = "subscription" | "fixed";
-export type RecurringFrequency = "weekly" | "monthly" | "yearly";
+export type RecurringFrequency = "weekly" | "biweekly" | "monthly" | "yearly";
 export type PendingStatus = "pending" | "confirmed" | "dismissed";
 
 type Rel<Name extends string, Columns extends string[], Target extends string> = {

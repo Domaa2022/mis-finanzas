@@ -18,6 +18,8 @@ import { Switch } from "@/components/ui/Switch";
 import { createRecurring, deleteRecurring, setRecurringActive, updateRecurring } from "@/lib/actions/recurring";
 import { formatMoney } from "@/lib/money";
 import {
+  biweeklyDays,
+  biweeklyRule,
   dayRuleLabel,
   dueSoonLabel,
   firstChargeDate,
@@ -42,13 +44,14 @@ const KIND_OPTIONS = [
 
 const FREQ_OPTIONS = [
   { value: "weekly", label: "Semanal" },
+  { value: "biweekly", label: "Quincenal" },
   { value: "monthly", label: "Mensual" },
   { value: "yearly", label: "Anual" },
 ] as const;
 
 const MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 
-const DEFAULT_RULE: Record<RecurringFrequency, number> = { weekly: 1, monthly: 1, yearly: 101 };
+const DEFAULT_RULE: Record<RecurringFrequency, number> = { weekly: 1, biweekly: 1531, monthly: 1, yearly: 101 };
 
 type Props = {
   accounts: RecurringAccount[];
@@ -328,6 +331,36 @@ function DayRuleField({
           ]}
         />
       </Field>
+    );
+  }
+  if (frequency === "biweekly") {
+    const [first, second] = biweeklyDays(rule);
+    return (
+      <fieldset className="m-0 border-0 p-0">
+        <legend className="mb-2 p-0 text-sm font-medium">Días de cobro cada mes</legend>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Primer cobro">
+            <Select
+              value={String(first)}
+              onChange={(e) => {
+                const f = Number(e.target.value);
+                onChange(biweeklyRule(f, second > f ? second : 31));
+              }}
+              options={Array.from({ length: 30 }, (_, i) => ({ value: String(i + 1), label: `Día ${i + 1}` }))}
+            />
+          </Field>
+          <Field label="Segundo cobro" error={error}>
+            <Select
+              value={String(second)}
+              onChange={(e) => onChange(biweeklyRule(first, Number(e.target.value)))}
+              options={[
+                ...Array.from({ length: 30 - first }, (_, i) => ({ value: String(first + i + 1), label: `Día ${first + i + 1}` })),
+                { value: "31", label: "Último día" },
+              ]}
+            />
+          </Field>
+        </div>
+      </fieldset>
     );
   }
   const month = Math.floor(rule / 100) || 1;

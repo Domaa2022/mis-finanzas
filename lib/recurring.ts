@@ -4,6 +4,7 @@
  *
  * `day_rule` según la frecuencia:
  * - Semanal: día de la semana ISO (1 = lunes … 7 = domingo).
+ * - Quincenal: primer día × 100 + segundo día (1531 = día 15 y último día). 31 = último día del mes.
  * - Mensual: día del mes 1–31, o −1 para el último día.
  * - Anual: mes × 100 + día (214 = 14 de febrero). El 29 de febrero cae el 28 en años normales.
  */
@@ -14,9 +15,25 @@ import { WEEKDAYS } from "@/lib/savings/schedule";
 
 export const RECURRING_FREQUENCY_LABEL: Record<RecurringFrequency, string> = {
   weekly: "Semanal",
+  biweekly: "Quincenal",
   monthly: "Mensual",
   yearly: "Anual",
 };
+
+/** Días de cobro quincenales frecuentes. */
+export const BIWEEKLY_CHARGE_PRESETS = [
+  { value: 1531, label: "Día 15 y último día del mes" },
+  { value: 115, label: "Día 1 y día 15" },
+] as const;
+
+/** Regla quincenal a partir de sus dos días (el segundo, mayor). */
+export function biweeklyRule(first: number, second: number): number {
+  return first * 100 + second;
+}
+
+export function biweeklyDays(rule: number): [number, number] {
+  return [Math.floor(rule / 100), rule % 100];
+}
 
 const MONTHS_SHORT = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 
@@ -24,6 +41,10 @@ export function validDayRule(frequency: RecurringFrequency, rule: number): boole
   if (!Number.isInteger(rule)) return false;
   if (frequency === "weekly") return rule >= 1 && rule <= 7;
   if (frequency === "monthly") return rule === -1 || (rule >= 1 && rule <= 31);
+  if (frequency === "biweekly") {
+    const [first, second] = biweeklyDays(rule);
+    return first >= 1 && first <= 30 && second > first && second <= 31;
+  }
   const month = Math.floor(rule / 100);
   const day = rule % 100;
   const max = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
@@ -42,7 +63,15 @@ export function nextChargeDate(frequency: RecurringFrequency, rule: number, afte
     return addDays(after, diff === 0 ? 7 : diff);
   }
   const [y, m] = after.split("-").map(Number);
-  if (frequency === "monthly") {
+  if (frequency === "biweekly") {
+    for (let i = 0; i < 2; i++) {
+      const total = y * 12 + (m - 1) + i;
+      for (const day of biweeklyDays(rule)) {
+        const candidate = dayOfMonth(Math.floor(total / 12), (total % 12) + 1, day);
+        if (candidate > after) return candidate;
+      }
+    }
+  } else if (frequency === "monthly") {
     for (let i = 0; i < 2; i++) {
       const total = y * 12 + (m - 1) + i;
       const candidate = dayOfMonth(Math.floor(total / 12), (total % 12) + 1, rule);
@@ -65,12 +94,14 @@ export function firstChargeDate(frequency: RecurringFrequency, rule: number, tod
 /** Equivalente mensual de un cargo, en centavos (para "L X al mes"). */
 export function monthlyEquivalent(frequency: RecurringFrequency, amountCents: number): number {
   if (frequency === "weekly") return Math.round((amountCents * 52) / 12);
+  if (frequency === "biweekly") return amountCents * 2;
   if (frequency === "yearly") return Math.round(amountCents / 12);
   return amountCents;
 }
 
 export function yearlyEquivalent(frequency: RecurringFrequency, amountCents: number): number {
   if (frequency === "weekly") return amountCents * 52;
+  if (frequency === "biweekly") return amountCents * 24;
   if (frequency === "yearly") return amountCents;
   return amountCents * 12;
 }
@@ -79,6 +110,10 @@ export function yearlyEquivalent(frequency: RecurringFrequency, amountCents: num
 export function dayRuleLabel(frequency: RecurringFrequency, rule: number): string {
   if (frequency === "weekly") return WEEKDAYS[rule - 1] ?? "";
   if (frequency === "monthly") return rule === -1 ? "último día" : `día ${rule}`;
+  if (frequency === "biweekly") {
+    const [first, second] = biweeklyDays(rule);
+    return `días ${first} y ${second === 31 ? "último" : second}`;
+  }
   return `${rule % 100} ${MONTHS_SHORT[Math.floor(rule / 100) - 1]}`;
 }
 
@@ -113,7 +148,7 @@ export const recurringSchema = z
     isVariable: z.boolean(),
     accountId: z.uuid("Elige de qué cuenta se cobra"),
     categoryId: z.uuid("Elige una categoría"),
-    frequency: z.enum(["weekly", "monthly", "yearly"]),
+    frequency: z.enum(["weekly", "biweekly", "monthly", "yearly"]),
     dayRule: z.number().int(),
     remindDaysBefore: z.number().int().min(0).max(7).nullable(),
     autoRegister: z.boolean(),

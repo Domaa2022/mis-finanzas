@@ -46,7 +46,9 @@ export function SegmentedControl<T extends string>({
             <label
               key={option.value}
               className={cn(
-                "relative flex h-11 min-w-0 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-2 text-[15px] transition-colors",
+                "relative flex h-11 min-w-0 cursor-pointer items-center justify-center gap-2 rounded-lg px-2 text-[15px] transition-colors",
+                // Con 4 o más opciones cada una toma el ancho de su texto, para que "Quincenal" no se corte.
+                options.length > 3 ? "flex-auto px-1.5" : "flex-1",
                 "has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-ink",
                 checked
                   ? "bg-white font-semibold text-ink ring-1 ring-line-strong"

@@ -13,6 +13,7 @@ const base = {
   days: [15, -1],
   ends: "on_goal" as const,
   endDate: "",
+  waitForIncome: true,
 };
 
 describe("scheduleSchema", () => {

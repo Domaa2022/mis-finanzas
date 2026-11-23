@@ -1,7 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import type { CurrencyCode, SavingsGoalRow, SavingsScheduleRow } from "@/lib/supabase/database.types";
-import { db, getAccounts } from "./core";
+import { db, getAccounts, getProfile } from "./core";
 
 export type Goal = SavingsGoalRow & { saved_cents: number };
 
@@ -23,14 +23,17 @@ export type ScheduleItem = SavingsScheduleRow & {
   /** Meta o cuenta a la que va el ahorro. */
   destination: { kind: "goal" | "account"; name: string; currency: CurrencyCode };
   account: { id: string; name: string };
+  /** Ya pasó la fecha del aporte y está esperando que entre el ingreso. */
+  waiting: boolean;
 };
 
 export const getSchedules = cache(async (): Promise<ScheduleItem[]> => {
   const { supabase } = await db();
-  const [{ data, error }, goals, accounts] = await Promise.all([
+  const [{ data, error }, goals, accounts, { today }] = await Promise.all([
     supabase.from("savings_schedules").select("*").order("created_at"),
     getGoals(true),
     getAccounts(true),
+    getProfile(),
   ]);
   if (error) throw error;
   const goalById = new Map(goals.map((g) => [g.id, g]));
@@ -46,6 +49,7 @@ export const getSchedules = cache(async (): Promise<ScheduleItem[]> => {
         percent: s.percent === null ? null : Number(s.percent),
         destination: { kind: s.goal_id ? ("goal" as const) : ("account" as const), name: target.name, currency: target.currency },
         account: { id: account.id, name: account.name },
+        waiting: s.active && s.wait_for_income && s.next_run_on <= today,
       },
     ];
   });

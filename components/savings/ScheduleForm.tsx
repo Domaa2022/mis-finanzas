@@ -15,6 +15,7 @@ import { MoneyInput } from "@/components/ui/MoneyInput";
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Select } from "@/components/ui/Select";
 import { Sheet } from "@/components/ui/Sheet";
+import { Switch } from "@/components/ui/Switch";
 import { createSchedule } from "@/lib/actions/savings";
 import { shortDate } from "@/lib/dates";
 import type { Frequency } from "@/lib/supabase/database.types";
@@ -103,6 +104,7 @@ export function ScheduleForm({
     days: DEFAULT_DAYS.biweekly,
     ends: startWithAccount ? "never" : "on_goal",
     endDate: "",
+    waitForIncome: true,
   };
   const { control, register, handleSubmit, setValue, formState, reset } = useForm<ScheduleInput>({
     resolver: zodResolver(scheduleSchema),
@@ -342,6 +344,26 @@ export function ScheduleForm({
             error={formState.errors.days?.message}
             onCustom={setCustomDays}
             onDays={(d) => setValue("days", d, { shouldValidate: formState.isSubmitted })}
+          />
+
+          <Controller
+            control={control}
+            name="waitForIncome"
+            render={({ field }) => (
+              <Switch
+                checked={field.value}
+                onCheckedChange={field.onChange}
+                label={
+                  <span className="flex flex-col gap-0.5">
+                    <span className="font-medium">Esperar a que entre mi ingreso</span>
+                    <span className="text-[13px] leading-normal text-muted">
+                      Aparta solo después de que registres un ingreso en la cuenta de origen. Si no entra antes del
+                      siguiente aporte, ese se omite y te avisamos.
+                    </span>
+                  </span>
+                }
+              />
+            )}
           />
 
           <fieldset className="m-0 flex flex-col border-0 p-0">

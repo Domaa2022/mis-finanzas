@@ -37,7 +37,7 @@ async function toAccount(opts: { to?: string; amount?: number; ends?: string; ne
      values ($1, $2, $3, 'fixed', $4, 'biweekly', '{15,-1}', $5) returning id`,
     [ANA, opts.to ?? AHORRO, CORRIENTE, opts.amount ?? 30000, opts.ends ?? "never"],
   );
-  await db.query("update savings_schedules set next_run_on = $2, last_run_on = '2026-10-31' where id = $1", [
+  await db.query("update savings_schedules set next_run_on = $2, last_run_on = '2026-10-31', wait_for_income = false where id = $1", [
     row.id,
     opts.nextRun ?? "2026-11-15",
   ]);
@@ -112,7 +112,7 @@ describe("ahorro programado hacia una cuenta", () => {
        values ($1, $2, $3, 'fixed', 50000, 'biweekly', '{15,-1}', 'on_goal') returning id`,
       [ANA, VIAJE, CORRIENTE],
     );
-    await db.query("update savings_schedules set next_run_on = '2026-11-15', last_run_on = '2026-10-31' where id = $1", [id.id]);
+    await db.query("update savings_schedules set next_run_on = '2026-11-15', last_run_on = '2026-10-31', wait_for_income = false where id = $1", [id.id]);
     expect(await process(id.id, "2026-11-15")).toBe(1);
     const saved = await one<{ s: string }>(db, "select saved_cents s from goal_progress where goal_id = $1", [VIAJE]);
     expect(n(saved.s)).toBe(50000);

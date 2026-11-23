@@ -98,14 +98,23 @@ export type RunInput = {
   ends: ScheduleEnds;
   /** Lo que falta para la meta (si `ends = on_goal`). */
   remainingToGoalCents: number;
+  /** Esperar a que entre el ingreso del periodo (por defecto, sí). */
+  waitForIncome?: boolean;
+  /** ¿Entró un ingreso en la cuenta de origen desde el aporte anterior? */
+  incomeArrived?: boolean;
+  /** ¿Ya llegó la fecha del siguiente aporte? */
+  nextRunReached?: boolean;
 };
 
 export type RunDecision =
   | { action: "contribute"; amountCents: number; completesGoal: boolean }
+  | { action: "wait" }
   | { action: "skip"; reason: "no_income" | "insufficient" | "goal_reached" };
 
 /**
  * Qué hacer en una fecha de aporte:
+ * - Esperando el ingreso: si no entró un ingreso desde el aporte anterior, el aporte
+ *   espera; si llega la fecha del siguiente sin ingreso, ese periodo se omite.
  * - Porcentaje sin ingresos: no se aparta nada ni se crea movimiento (regla 4).
  * - Sin saldo suficiente: se omite y se notifica; nunca deja la cuenta en
  *   negativo, salvo tarjetas de crédito (regla 5).
@@ -113,6 +122,9 @@ export type RunDecision =
  *   programación se desactiva al llegar a la meta (regla 6).
  */
 export function decideRun(input: RunInput): RunDecision {
+  if (input.waitForIncome && !input.incomeArrived) {
+    return input.nextRunReached ? { action: "skip", reason: "no_income" } : { action: "wait" };
+  }
   if (input.ends === "on_goal" && input.remainingToGoalCents <= 0) return { action: "skip", reason: "goal_reached" };
 
   let amount =

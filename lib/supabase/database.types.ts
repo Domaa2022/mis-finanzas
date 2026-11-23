@@ -122,6 +122,8 @@ export type SavingsScheduleRow = {
   ends: ScheduleEnds;
   end_date: string | null;
   active: boolean;
+  /** Solo aparta cuando entró un ingreso en la cuenta de origen desde el aporte anterior. */
+  wait_for_income: boolean;
   next_run_on: string;
   last_run_on: string;
 } & Timestamps;

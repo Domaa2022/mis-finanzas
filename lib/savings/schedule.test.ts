@@ -109,6 +109,36 @@ const base: RunInput = {
   remainingToGoalCents: 1_000_000,
 };
 
+describe("decideRun: espera el ingreso", () => {
+  const fixed = {
+    mode: "fixed" as const,
+    amountCents: 50_000,
+    percent: null,
+    incomeSinceLastCents: 0,
+    balanceCents: 100_000,
+    accountIsCreditCard: false,
+    ends: "never" as const,
+    remainingToGoalCents: 0,
+    waitForIncome: true,
+  };
+
+  it("sin ingreso todavía, espera", () => {
+    expect(decideRun({ ...fixed, incomeArrived: false, nextRunReached: false })).toEqual({ action: "wait" });
+  });
+
+  it("si llega el siguiente aporte sin ingreso, se omite", () => {
+    expect(decideRun({ ...fixed, incomeArrived: false, nextRunReached: true })).toEqual({ action: "skip", reason: "no_income" });
+  });
+
+  it("con ingreso, aparta", () => {
+    expect(decideRun({ ...fixed, incomeArrived: true }).action).toBe("contribute");
+  });
+
+  it("sin esperar, aparta aunque no haya ingreso", () => {
+    expect(decideRun({ ...fixed, waitForIncome: false, incomeArrived: false }).action).toBe("contribute");
+  });
+});
+
 describe("decideRun", () => {
   it("aporta el monto fijo cuando hay saldo", () => {
     expect(decideRun(base)).toEqual({ action: "contribute", amountCents: 50_000, completesGoal: false });

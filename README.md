@@ -34,6 +34,7 @@ Las migraciones están en [`supabase/migrations/`](supabase/migrations/) y se ap
 | `…000700_tarjeta_bimoneda.sql` | `accounts.paired_account_id`: tarjetas con deuda en lempiras y en dólares |
 | `…000800_gastos_fijos_quincenales.sql` | Frecuencia quincenal para suscripciones y gastos fijos |
 | `…000900_ahorro_a_cuenta.sql` | Ahorro programado hacia una cuenta, sin meta (`savings_schedules.to_account_id`) |
+| `…001000_ahorro_espera_ingreso.sql` | El ahorro programado espera el ingreso del periodo (`wait_for_income`) |
 
 Dos formas de aplicarlas:
 
@@ -108,7 +109,7 @@ npm run dev   # http://localhost:3000
 
 ## Desarrollo
 
-- `/dev/ui`: catálogo de componentes y gráficas. `/dev/formularios/<nombre>`: cada formulario con datos de
+- `/dev/ui`: catálogo de componentes y gráficas. `/dev/ahorros`: Ahorros con datos de ejemplo. `/dev/formularios/<nombre>`: cada formulario con datos de
   ejemplo. Solo existen en desarrollo y no piden sesión.
 - **Montos:** siempre enteros en centavos. `formatMoney`/`<Money>` para mostrarlos, `<MoneyInput>` para capturarlos.
 - **Cache Components está activo:** lo que lee la sesión (`cookies()`), `params` o `searchParams` va dentro de
@@ -147,6 +148,9 @@ e2e/                   Playwright
   ("Visa · Lempiras" y "Visa · Dólares") para elegir en qué moneda se cargó.
 - **Ahorro programado a una cuenta:** cada aporte es una transferencia normal ("Ahorro programado"), no cuenta
   como gasto y aparece en Movimientos. Las dos cuentas deben ser de la misma moneda.
+- **Ahorro programado espera el ingreso** (activado por defecto): en la fecha del aporte solo aparta si ya se
+  registró un ingreso en la cuenta de origen desde el aporte anterior; si no, espera y aparta el día que entre.
+  Si llega la fecha del siguiente aporte sin ingreso, ese periodo se omite y se avisa.
 - **Gasto fijo con monto variable:** siempre queda pendiente para indicar el monto real; no se registra solo.
 - **Tasa de cambio:** se escribe como lempiras por 1 dólar.
 - **Reportes y presupuestos** se calculan en lempiras; los gastos en dólares se indican aparte.

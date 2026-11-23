@@ -39,6 +39,8 @@ export const scheduleSchema = z
     days: z.array(z.number().int()),
     ends: z.enum(["on_goal", "on_date", "never"]),
     endDate: z.string(),
+    /** Esperar a que entre el ingreso del periodo antes de apartar. */
+    waitForIncome: z.boolean(),
   })
   .superRefine((v, ctx) => {
     if (v.destination === "goal" && !z.uuid().safeParse(v.goalId).success) {

@@ -107,6 +107,7 @@ export async function createSchedule(input: ScheduleInput): Promise<ActionResult
       days: v.days,
       ends: v.ends,
       end_date: v.ends === "on_date" ? v.endDate : null,
+      wait_for_income: v.waitForIncome,
     })
     .select("id")
     .single();

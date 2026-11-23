@@ -74,7 +74,12 @@ async function schedule(s: Schedule): Promise<string> {
       s.endDate ?? null,
     ],
   );
-  await db.query("update savings_schedules set next_run_on = $2, last_run_on = $3 where id = $1", [row.id, s.nextRun, s.lastRun]);
+  // Estas pruebas cubren las reglas 4–7 sin esperar el ingreso (eso se prueba en ahorro-espera-ingreso).
+  await db.query("update savings_schedules set next_run_on = $2, last_run_on = $3, wait_for_income = false where id = $1", [
+    row.id,
+    s.nextRun,
+    s.lastRun,
+  ]);
   return row.id;
 }
 

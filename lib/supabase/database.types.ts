@@ -218,7 +218,7 @@ export type Database = {
       >;
       recurring_charges: Table<
         RecurringChargeRow,
-        "name" | "color" | "account_id" | "amount_cents" | "frequency" | "day_rule" | "next_charge_on",
+        "name" | "color" | "account_id" | "amount_cents" | "frequency" | "day_rule",
         [
           Rel<"recurring_charges_account_id_user_id_fkey", ["account_id", "user_id"], "accounts">,
           Rel<"recurring_charges_category_id_user_id_fkey", ["category_id", "user_id"], "categories">,

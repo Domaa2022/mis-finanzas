@@ -1,6 +1,7 @@
 "use client";
 
 import { AccountForm } from "@/components/accounts/AccountForm";
+import { RecurringForm } from "@/components/recurring/RecurringForm";
 import { ContributionForm } from "@/components/savings/ContributionForm";
 import { GoalForm } from "@/components/savings/GoalForm";
 import { ScheduleForm } from "@/components/savings/ScheduleForm";
@@ -70,6 +71,8 @@ export function DemoForm({ nombre }: { nombre: keyof typeof DEMO_FORMS }) {
       return <ScheduleForm goals={goals} accounts={accountOptions} defaultGoalId={null} today={TODAY} />;
     case "nueva-meta":
       return <GoalForm today={TODAY} />;
+    case "nuevo-gasto-fijo":
+      return <RecurringForm mode="create" accounts={accountOptions} categories={categories} today={TODAY} />;
     case "aportar":
       return <ContributionForm goals={goals} accounts={accountOptions} defaultGoalId={null} today={TODAY} />;
   }

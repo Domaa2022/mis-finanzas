@@ -6,4 +6,5 @@ export const DEMO_FORMS = {
   "programar-ahorro": { title: "Programar ahorro", subtitle: "Aparta dinero para una meta de forma automática." },
   "nueva-meta": { title: "Nueva meta", subtitle: "Ponle nombre y cifra a lo que quieres lograr." },
   aportar: { title: "Aportar", subtitle: "Mueve dinero de una cuenta a tu meta." },
+  "nuevo-gasto-fijo": { title: "Nuevo gasto fijo", subtitle: "Suscripciones y pagos que se repiten." },
 } as const;

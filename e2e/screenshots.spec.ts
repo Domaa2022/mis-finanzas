@@ -3,7 +3,7 @@ import { test } from "@playwright/test";
 // Capturas para revisión visual. Solo corre con SCREENSHOTS=1.
 test.skip(!process.env.SCREENSHOTS, "Solo con SCREENSHOTS=1");
 
-const FORMS = ["nueva-cuenta", "registrar", "transferir", "programar-ahorro", "nueva-meta", "aportar"];
+const FORMS = ["nueva-cuenta", "registrar", "transferir", "programar-ahorro", "nueva-meta", "aportar", "nuevo-gasto-fijo"];
 
 for (const route of ["/login", "/registro", "/dev/ui", ...FORMS.map((f) => `/dev/formularios/${f}`)]) {
   test(`captura ${route}`, async ({ page }, info) => {

@@ -36,7 +36,7 @@ const BANK_OPTIONS = [
   { value: "none", label: "Ninguno (efectivo)" },
 ];
 
-export function UiShowcase() {
+export function UiShowcase({ charts }: { charts?: ReactNode }) {
   return (
     <>
       <PageHeader eyebrow="Fase 0" title="Componentes" figure={<Money cents={123450} currency="HNL" />}>
@@ -66,6 +66,7 @@ export function UiShowcase() {
         </div>
 
         <AccountTilesDemo />
+        {charts}
       </Sheet>
     </>
   );

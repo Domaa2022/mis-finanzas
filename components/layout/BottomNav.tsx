@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
+import { Suspense } from "react";
 import { cn } from "@/lib/cn";
 import { BOTTOM_NAV_LEFT, BOTTOM_NAV_RIGHT, REGISTER_EXPENSE_HREF, isActive, type NavItem } from "./nav";
 
-function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
-  const active = isActive(pathname, item.href);
+function NavLink({ item, pathname }: { item: NavItem; pathname: string | null }) {
+  const active = pathname !== null && isActive(pathname, item.href);
   const Icon = item.icon;
   return (
     <Link
@@ -26,8 +27,18 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
 
 /** Barra de navegación inferior para móvil con el botón central "Registrar gasto". */
 export function BottomNav({ className }: { className?: string }) {
-  const pathname = usePathname();
+  return (
+    <Suspense fallback={<BottomNavBar pathname={null} className={className} />}>
+      <ActiveBottomNav className={className} />
+    </Suspense>
+  );
+}
 
+function ActiveBottomNav({ className }: { className?: string }) {
+  return <BottomNavBar pathname={usePathname()} className={className} />;
+}
+
+function BottomNavBar({ pathname, className }: { pathname: string | null; className?: string }) {
   return (
     <nav
       aria-label="Navegación principal"
@@ -43,7 +54,7 @@ export function BottomNav({ className }: { className?: string }) {
 
       <Link
         href={REGISTER_EXPENSE_HREF}
-        aria-current={isActive(pathname, REGISTER_EXPENSE_HREF) ? "page" : undefined}
+        aria-current={pathname !== null && isActive(pathname, REGISTER_EXPENSE_HREF) ? "page" : undefined}
         className="group -mt-[26px] flex flex-col items-center gap-1"
       >
         <span className="box-content flex size-[54px] items-center justify-center rounded-full border-4 border-white bg-primary text-white ring-1 ring-line group-hover:bg-primary-dark">

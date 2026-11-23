@@ -13,6 +13,8 @@ type AccountTileProps = {
   currency: Currency;
   /** Color de la cuenta. Se ignora en `all`. */
   color?: string;
+  /** Segunda cifra en otra moneda (el total en dólares de "Todas"). */
+  extraBalance?: { cents: number; currency: Currency };
   selected?: boolean;
   onSelect?: () => void;
   className?: string;
@@ -29,6 +31,7 @@ export function AccountTile({
   balanceCents,
   currency,
   color,
+  extraBalance,
   selected = false,
   onSelect,
   className,
@@ -57,7 +60,12 @@ export function AccountTile({
         <span className="truncate text-sm font-semibold lg:text-[15px]">{name}</span>
         <span className="truncate text-xs text-ink-3 lg:text-[13px]">{subtitle}</span>
       </span>
-      <Money cents={balanceCents} currency={currency} className="text-[15px] lg:text-[17px]" />
+      <span className="flex flex-col">
+        <Money cents={balanceCents} currency={currency} className="text-[15px] lg:text-[17px]" />
+        {extraBalance && (
+          <Money cents={extraBalance.cents} currency={extraBalance.currency} className="text-xs text-ink-3 lg:text-[13px]" />
+        )}
+      </span>
     </button>
   );
 }

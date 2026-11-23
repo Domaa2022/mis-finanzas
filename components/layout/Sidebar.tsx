@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
+import { Suspense } from "react";
 import { cn } from "@/lib/cn";
 import { Logo } from "./Logo";
 import { REGISTER_EXPENSE_HREF, SIDEBAR_ITEMS, isActive } from "./nav";
 
 /** Menú lateral de escritorio con la píldora "Registrar gasto" arriba. */
 export function Sidebar({ className }: { className?: string }) {
-  const pathname = usePathname();
-
   return (
     <aside
       className={cn(
@@ -32,9 +31,23 @@ export function Sidebar({ className }: { className?: string }) {
         Registrar gasto
       </Link>
 
+      <Suspense fallback={<SidebarNav pathname={null} />}>
+        <ActiveSidebarNav />
+      </Suspense>
+    </aside>
+  );
+}
+
+function ActiveSidebarNav() {
+  return <SidebarNav pathname={usePathname()} />;
+}
+
+/** Enlaces del menú. Sin `pathname` (mientras carga) ninguno aparece activo. */
+function SidebarNav({ pathname }: { pathname: string | null }) {
+  return (
       <nav aria-label="Navegación principal" className="flex flex-col gap-1">
         {SIDEBAR_ITEMS.map(({ href, label, icon: Icon }) => {
-          const active = isActive(pathname, href);
+          const active = pathname !== null && isActive(pathname, href);
           return (
             <Link
               key={href}
@@ -53,6 +66,5 @@ export function Sidebar({ className }: { className?: string }) {
           );
         })}
       </nav>
-    </aside>
   );
 }

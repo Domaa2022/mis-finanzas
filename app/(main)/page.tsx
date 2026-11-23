@@ -11,6 +11,7 @@ import { Money } from "@/components/ui/Money";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Sheet } from "@/components/ui/Sheet";
 import { StatCard } from "@/components/ui/StatCard";
+import { groupPairedAccounts } from "@/lib/accounts/cards";
 import { accountSubtitle } from "@/lib/accounts/schema";
 import { totalsByCurrency } from "@/lib/balances";
 import { getAccounts, getProfile } from "@/lib/data/core";
@@ -118,16 +119,18 @@ async function Greeting() {
   return <>Hola, {displayName}</>;
 }
 
+/** Cuentas para filtrar Inicio. Una tarjeta bimoneda es una sola opción con sus dos deudas. */
 async function filterAccounts(): Promise<FilterAccount[]> {
   const accounts = await getAccounts();
-  return accounts.map((a) => ({
+  return groupPairedAccounts(accounts).map(({ main: a, other }) => ({
     id: a.id,
     type: a.type,
     name: a.name,
-    subtitle: accountSubtitle(a.bank_name, a.type, CURRENCY_NAME[a.currency]),
+    subtitle: accountSubtitle(a.bank_name, a.type, other ? "Lempiras y dólares" : CURRENCY_NAME[a.currency]),
     currency: a.currency,
     color: a.color,
     balance_cents: a.balance_cents,
+    extra: other ? { cents: other.balance_cents, currency: other.currency } : null,
   }));
 }
 

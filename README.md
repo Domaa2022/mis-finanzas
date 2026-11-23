@@ -31,6 +31,7 @@ Las migraciones están en [`supabase/migrations/`](supabase/migrations/) y se ap
 | `…000400_gastos_fijos.sql` | `recurring_charges`, `pending_charges`, `confirm_pending_charge()`, job de cobros |
 | `…000500_presupuestos.sql` | `budgets` |
 | `…000600_push.sql` | `push_subscriptions` |
+| `…000700_tarjeta_bimoneda.sql` | `accounts.paired_account_id`: tarjetas con deuda en lempiras y en dólares |
 
 Dos formas de aplicarlas:
 
@@ -138,6 +139,10 @@ e2e/                   Playwright
 - **Navegación:** la barra inferior se usa hasta 1023 px; el menú lateral desde 1024 px.
 - **Transferencias y aportes** no dejan una cuenta en negativo (salvo tarjetas de crédito), igual que el
   ahorro programado.
+- **Tarjetas bimoneda:** una tarjeta con deuda en lempiras y en dólares se guarda como dos cuentas
+  `credit_card`, una por moneda (la segunda apunta a la principal con `paired_account_id`). La app las muestra
+  como una sola tarjeta con las dos deudas; al registrar un gasto o transferir aparecen por separado
+  ("Visa · Lempiras" y "Visa · Dólares") para elegir en qué moneda se cargó.
 - **Gasto fijo con monto variable:** siempre queda pendiente para indicar el monto real; no se registra solo.
 - **Tasa de cambio:** se escribe como lempiras por 1 dólar.
 - **Reportes y presupuestos** se calculan en lempiras; los gastos en dólares se indican aparte.

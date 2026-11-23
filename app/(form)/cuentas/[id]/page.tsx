@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { AccountForm } from "@/components/accounts/AccountForm";
 import { FormSkeleton } from "@/components/skeletons/Skeletons";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Sheet } from "@/components/ui/Sheet";
 import { bankFieldsFrom, type AccountInput } from "@/lib/accounts/schema";
-import { getAccount } from "@/lib/data/core";
+import { getAccounts } from "@/lib/data/core";
 
 export const metadata: Metadata = { title: "Editar cuenta" };
 
@@ -34,8 +34,12 @@ export default function EditAccountPage({ params }: PageProps<"/cuentas/[id]">) 
 async function EditAccount({ params }: { params: PageProps<"/cuentas/[id]">["params"] }) {
   const { id } = await params;
   if (!/^[0-9a-f-]{36}$/i.test(id)) notFound();
-  const account = await getAccount(id);
+  const accounts = await getAccounts(true);
+  const account = accounts.find((a) => a.id === id);
   if (!account) notFound();
+  // La deuda en la otra moneda de una tarjeta se edita desde la tarjeta principal.
+  if (account.paired_account_id) redirect(`/cuentas/${account.paired_account_id}`);
+  const pair = accounts.find((a) => a.paired_account_id === account.id);
 
   const values: AccountInput = {
     type: account.type,
@@ -45,6 +49,8 @@ async function EditAccount({ params }: { params: PageProps<"/cuentas/[id]">["par
     balance: account.type === "credit_card" ? -account.balance_cents : account.balance_cents,
     color: account.color.toUpperCase() as AccountInput["color"],
     includeInTotal: account.include_in_total,
+    dualCurrency: Boolean(pair),
+    otherBalance: pair ? -pair.balance_cents : 0,
   };
 
   return <AccountForm mode="edit" accountId={account.id} defaultValues={values} archived={Boolean(account.archived_at)} />;

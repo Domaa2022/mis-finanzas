@@ -31,6 +31,10 @@ export const accountSchema = z
     balance: z.number({ error: "Escribe un monto válido" }).int(),
     color: z.enum(colorValues),
     includeInTotal: z.boolean(),
+    /** Solo tarjetas: también tiene deuda en la otra moneda. */
+    dualCurrency: z.boolean(),
+    /** Deuda en la otra moneda, en centavos (positivo). */
+    otherBalance: z.number({ error: "Escribe un monto válido" }).int(),
   })
   .superRefine((v, ctx) => {
     if (v.type !== "cash" && v.bank === "") {
@@ -42,7 +46,15 @@ export const accountSchema = z
     if (v.type === "credit_card" && v.balance < 0) {
       ctx.addIssue({ code: "custom", path: ["balance"], message: "Escribe lo que debes como un monto positivo" });
     }
+    if (isDualCard(v) && v.otherBalance < 0) {
+      ctx.addIssue({ code: "custom", path: ["otherBalance"], message: "Escribe lo que debes como un monto positivo" });
+    }
   });
+
+/** Tarjeta de crédito con deuda en las dos monedas. */
+export function isDualCard(input: Pick<AccountInput, "type" | "dualCurrency">): boolean {
+  return input.type === "credit_card" && input.dualCurrency;
+}
 
 export type AccountInput = z.infer<typeof accountSchema>;
 

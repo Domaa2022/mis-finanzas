@@ -9,6 +9,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Sheet } from "@/components/ui/Sheet";
 import { StatCard } from "@/components/ui/StatCard";
 import { accountSubtitle } from "@/lib/accounts/schema";
+import { groupPairedAccounts } from "@/lib/accounts/cards";
 import { getAccounts, getProfile } from "@/lib/data/core";
 import { getMonthTotals, getTransactions } from "@/lib/data/transactions";
 import { endOfMonth, parseMonthParam, startOfMonth } from "@/lib/dates";
@@ -58,7 +59,7 @@ async function HeaderControls({ searchParams }: { searchParams: SearchParams }) 
       {accounts.length > 0 && (
         <AccountPill
           className="ml-3 lg:ml-0"
-          accounts={accounts.map((a) => ({
+          accounts={groupPairedAccounts(accounts).map(({ main: a, other }) => ({
             id: a.id,
             type: a.type,
             name: a.name,
@@ -66,6 +67,7 @@ async function HeaderControls({ searchParams }: { searchParams: SearchParams }) 
             currency: a.currency,
             color: a.color,
             balance_cents: a.balance_cents,
+            extra: other ? { cents: other.balance_cents, currency: other.currency } : null,
           }))}
         />
       )}

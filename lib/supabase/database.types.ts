@@ -56,6 +56,8 @@ export type AccountRow = {
   include_in_total: boolean;
   initial_balance_cents: number;
   archived_at: string | null;
+  /** En tarjetas bimoneda: la cuenta en la otra moneda apunta a la principal. */
+  paired_account_id: string | null;
 } & Timestamps;
 
 export type CategoryRow = {
@@ -196,7 +198,11 @@ export type Database = {
   public: {
     Tables: {
       profiles: Table<ProfileRow, "id">;
-      accounts: Table<AccountRow, "name" | "type" | "color">;
+      accounts: Table<
+        AccountRow,
+        "name" | "type" | "color",
+        [Rel<"accounts_paired_fk", ["paired_account_id", "user_id"], "accounts">]
+      >;
       categories: Table<CategoryRow, "name" | "color" | "kind">;
       transactions: Table<
         TransactionRow,

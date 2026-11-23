@@ -48,11 +48,6 @@ export const getAccounts = cache(async (includeArchived = false): Promise<Accoun
   }));
 });
 
-export const getAccount = cache(async (id: string): Promise<AccountWithBalance | null> => {
-  const accounts = await getAccounts(true);
-  return accounts.find((a) => a.id === id) ?? null;
-});
-
 export const getCategories = cache(async (kind?: CategoryKind): Promise<CategoryRow[]> => {
   const { supabase } = await db();
   let query = supabase.from("categories").select("*").order("created_at");

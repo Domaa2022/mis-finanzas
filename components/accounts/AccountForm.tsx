@@ -17,6 +17,7 @@ import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Select } from "@/components/ui/Select";
 import { Sheet } from "@/components/ui/Sheet";
 import { Switch } from "@/components/ui/Switch";
+import { otherCurrency } from "@/lib/accounts/cards";
 import { ACCOUNT_TYPE_META, type AccountType } from "@/lib/accounts/meta";
 import {
   accountSchema,
@@ -26,6 +27,7 @@ import {
   bankNameFrom,
   BANKS,
   initialBalanceFrom,
+  isDualCard,
   type AccountInput,
 } from "@/lib/accounts/schema";
 import { createAccount, setAccountArchived, updateAccount } from "@/lib/actions/accounts";
@@ -57,6 +59,8 @@ export const EMPTY_ACCOUNT: AccountInput = {
   balance: 0,
   color: "#0F766E",
   includeInTotal: true,
+  dualCurrency: false,
+  otherBalance: 0,
 };
 
 type Props =
@@ -74,6 +78,9 @@ export function AccountForm(props: Props) {
   const values = useWatch({ control });
   const type = values.type ?? "savings";
   const isCard = type === "credit_card";
+  const currency = values.currency ?? "HNL";
+  const other = otherCurrency(currency);
+  const dual = isDualCard({ type, dualCurrency: values.dualCurrency ?? false });
 
   const onSubmit = handleSubmit((input) =>
     startTransition(async () => {
@@ -162,7 +169,7 @@ export function AccountForm(props: Props) {
               control={control}
               name="currency"
               render={({ field }) => (
-                <SegmentedControl legend="Moneda" options={CURRENCY_OPTIONS} value={field.value} onChange={field.onChange} />
+                <SegmentedControl legend={dual ? "Moneda principal" : "Moneda"} options={CURRENCY_OPTIONS} value={field.value} onChange={field.onChange} />
               )}
             />
             <Controller
@@ -170,7 +177,9 @@ export function AccountForm(props: Props) {
               name="balance"
               render={({ field, fieldState }) => (
                 <Field
-                  label={isCard ? "Deuda actual" : "Saldo actual"}
+                  label={
+                    isCard ? (dual ? `Deuda actual en ${CURRENCY_NAME[currency].toLowerCase()}` : "Deuda actual") : "Saldo actual"
+                  }
                   hint={
                     isCard
                       ? "Lo que debes hoy en la tarjeta. Puedes ajustarlo después."
@@ -191,6 +200,54 @@ export function AccountForm(props: Props) {
               )}
             />
           </div>
+
+          {isCard && (
+            <div className="flex flex-col gap-4 border-t border-surface-2 pt-2">
+              <Controller
+                control={control}
+                name="dualCurrency"
+                render={({ field }) => (
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    label={
+                      <span className="flex flex-col gap-0.5">
+                        <span className="font-medium">También tiene deuda en {CURRENCY_NAME[other].toLowerCase()}</span>
+                        <span className="text-[13px] text-muted">
+                          {props.mode === "edit" && props.defaultValues.dualCurrency
+                            ? "Si lo desactivas, esa deuda se archiva con sus movimientos."
+                            : "Para tarjetas que llevan un saldo en cada moneda."}
+                        </span>
+                      </span>
+                    }
+                  />
+                )}
+              />
+              {dual && (
+                <Controller
+                  control={control}
+                  name="otherBalance"
+                  render={({ field, fieldState }) => (
+                    <Field
+                      label={`Deuda actual en ${CURRENCY_NAME[other].toLowerCase()}`}
+                      hint="Lo que debes hoy en esa moneda."
+                      error={fieldState.error?.message}
+                      className="lg:max-w-[calc(50%-10px)]"
+                    >
+                      <MoneyInput
+                        ref={field.ref}
+                        name={field.name}
+                        onBlur={field.onBlur}
+                        currency={other}
+                        value={field.value ?? 0}
+                        onValueChange={(c) => field.onChange(c ?? 0)}
+                      />
+                    </Field>
+                  )}
+                />
+              )}
+            </div>
+          )}
 
           <Controller
             control={control}
@@ -238,10 +295,19 @@ export function AccountForm(props: Props) {
             <span className="flex flex-col gap-0.5">
               <span className="text-[17px] font-semibold">{previewName}</span>
               <span className="text-sm text-ink-3">
-                {accountSubtitle(previewBank, type, CURRENCY_NAME[values.currency ?? "HNL"])}
+                {accountSubtitle(previewBank, type, dual ? "Lempiras y dólares" : CURRENCY_NAME[currency])}
               </span>
             </span>
-            <Money cents={previewBalance} currency={values.currency ?? "HNL"} className="text-[22px]" />
+            <span className="flex flex-col">
+              <Money cents={previewBalance} currency={currency} className="text-[22px]" />
+              {dual && (
+                <Money
+                  cents={initialBalanceFrom("credit_card", values.otherBalance ?? 0)}
+                  currency={other}
+                  className="text-[15px] text-ink-3"
+                />
+              )}
+            </span>
           </div>
           <p className="text-sm leading-normal text-ink-3">
             Así aparecerá en <strong className="font-semibold text-ink">Tus cuentas</strong> en Inicio y en el selector al

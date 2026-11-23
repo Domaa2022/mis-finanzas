@@ -1,4 +1,5 @@
 import "server-only";
+import { accountIdsFor } from "@/lib/accounts/cards";
 import { monthTotals, type MonthTotals } from "@/lib/balances";
 import { endOfMonth, startOfMonth } from "@/lib/dates";
 import type { CurrencyCode, TransactionKind } from "@/lib/supabase/database.types";
@@ -22,6 +23,7 @@ export type TransactionListItem = {
 const LIST_COLUMNS =
   "id, kind, amount_cents, occurred_on, note, transfer_id, goal_id, recurring_id, account:accounts!inner(id, name, currency, color), category:categories(id, name, icon, color)";
 
+/** `accountId`: en una tarjeta bimoneda incluye también los movimientos de su deuda en la otra moneda. */
 type Filters = { accountId?: string | null; from?: string; to?: string; limit?: number; kinds?: TransactionKind[] };
 
 export async function getTransactions({ accountId, from, to, limit, kinds }: Filters = {}): Promise<TransactionListItem[]> {
@@ -31,7 +33,7 @@ export async function getTransactions({ accountId, from, to, limit, kinds }: Fil
     .select(LIST_COLUMNS)
     .order("occurred_on", { ascending: false })
     .order("created_at", { ascending: false });
-  if (accountId) query = query.eq("account_id", accountId);
+  if (accountId) query = query.in("account_id", accountIdsFor(await getAccounts(true), accountId));
   if (from) query = query.gte("occurred_on", from);
   if (to) query = query.lte("occurred_on", to);
   if (kinds) query = query.in("kind", kinds);

@@ -16,6 +16,8 @@ export type FilterAccount = {
   currency: CurrencyCode;
   color: string;
   balance_cents: number;
+  /** Deuda en la otra moneda de una tarjeta bimoneda. */
+  extra: { cents: number; currency: CurrencyCode } | null;
 };
 
 function useAccountParam() {
@@ -102,6 +104,7 @@ export function AccountTiles({
           balanceCents={a.balance_cents}
           currency={a.currency}
           color={a.color}
+          extraBalance={a.extra ?? undefined}
           selected={selected === a.id}
           onSelect={() => select(a.id)}
           className="w-[132px] flex-none lg:w-auto"

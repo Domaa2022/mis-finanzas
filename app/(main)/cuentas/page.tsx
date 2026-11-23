@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { groupPairedAccounts } from "@/lib/accounts/cards";
 import { ArrowLeftRight, Plus } from "lucide-react";
 import { Suspense } from "react";
 import { AccountList } from "@/components/accounts/AccountList";
@@ -54,8 +55,8 @@ export default function AccountsPage({ searchParams }: PageProps<"/cuentas">) {
 }
 
 async function ActiveCount() {
-  const accounts = await getAccounts();
-  const n = accounts.length;
+  // Una tarjeta con deuda en lempiras y dólares cuenta como una sola.
+  const n = groupPairedAccounts(await getAccounts()).length;
   return <>{n === 1 ? "1 cuenta activa" : `${n} cuentas activas`}</>;
 }
 
